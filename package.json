@@ -4,5 +4,8 @@
   "description": "Ruby Hub - The Ultimate Roblox Script Hub",
   "scripts": {
     "dev": "npx -y serve ."
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
   }
 }
