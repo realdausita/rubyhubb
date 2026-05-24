@@ -1,0 +1,8 @@
+{
+  "name": "rubyhub",
+  "version": "1.0.0",
+  "description": "Ruby Hub - The Ultimate Roblox Script Hub",
+  "scripts": {
+    "dev": "npx -y serve ."
+  }
+}
