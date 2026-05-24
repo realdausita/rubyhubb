@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruby Hub — The Ultimate Roblox Script Hub</title>
+  <meta name="description" content="Ruby Hub is a powerful, free Roblox script hub supporting Break In 1 and Evade. Join our community and enhance your gaming experience.">
+  <meta name="theme-color" content="#E31B54">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Particle Background -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ruby-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#FF4D7D"/>
+              <stop offset="100%" style="stop-color:#E31B54"/>
+            </linearGradient>
+          </defs>
+          <path d="M20 4L34 14L28 36H12L6 14L20 4Z" fill="url(#ruby-grad)" opacity="0.9"/>
+          <path d="M20 4L6 14H34L20 4Z" fill="#FF6B8A" opacity="0.7"/>
+          <path d="M6 14L12 36H28L34 14H6Z" fill="url(#ruby-grad)"/>
+          <path d="M20 4L14 14L20 36L26 14L20 4Z" fill="#FF8DA6" opacity="0.3"/>
+        </svg>
+        <span>Ruby Hub</span>
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#features">Features</a>
+        <a href="#games">Games</a>
+        <a href="#script">Script</a>
+        <a href="#team">Team</a>
+      </div>
+
+      <a href="https://discord.gg/Jvq7MtJKE2" target="_blank" rel="noopener noreferrer" class="nav-discord" id="nav-discord-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
+        </svg>
+        Discord
+      </a>
+
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======= HERO ======= -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow hero-glow-1"></div>
+      <div class="hero-glow hero-glow-2"></div>
+      <div class="hero-glow hero-glow-3"></div>
+      <div class="hero-lines"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">✦ Free & Open Script Hub</div>
+      <h1 class="hero-title">Ruby<span class="gradient-text">Hub</span></h1>
+      <p class="hero-subtitle">The ultimate free script hub for Roblox. Powerful scripts for your favorite games, seamless execution, zero cost.</p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" id="hero-copy-btn" aria-label="Copy Script">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+          </svg>
+          Copy Script
+        </button>
+        <a href="https://discord.gg/Jvq7MtJKE2" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
+          </svg>
+          Join Discord
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-number">2+</span>
+          <span class="hero-stat-label">Games Supported</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">100%</span>
+          <span class="hero-stat-label">Free Forever</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">24/7</span>
+          <span class="hero-stat-label">Support</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FEATURES ======= -->
+  <section class="features" id="features">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">Features</div>
+        <h2 class="section-title">Why Choose Ruby Hub?</h2>
+        <p class="section-subtitle">Every reason to choose Ruby Hub, none to doubt it.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+            </svg>
+          </div>
+          <h3>100% Free</h3>
+          <p>Enjoy premium-level scripting at no cost — Ruby Hub is free for all, forever.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </div>
+          <h3>Always Improving</h3>
+          <p>Ruby Hub is here for the long run and just keeps getting better with every update.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card reveal reveal-delay-3">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <h3>Fast Updates</h3>
+          <p>Ruby Hub is always up to date, so you never have to wait for script patches.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card reveal reveal-delay-4">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+            </svg>
+          </div>
+          <h3>Multi-Game Support</h3>
+          <p>Run scripts across multiple Roblox games with seamless compatibility and stability.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card reveal reveal-delay-5">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3>Secure & Safe</h3>
+          <p>We keep our scripts clean and secure, ensuring you're always protected.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card reveal reveal-delay-6">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+            </svg>
+          </div>
+          <h3>Active Community</h3>
+          <p>Join our growing Discord community for support, updates, and script requests.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= SUPPORTED GAMES ======= -->
+  <section class="games" id="games">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">Supported Games</div>
+        <h2 class="section-title">Games We Support</h2>
+        <p class="section-subtitle">Ruby Hub works seamlessly with these popular Roblox games.</p>
+      </div>
+
+      <div class="games-grid">
+        <!-- Break In 1 -->
+        <div class="game-card reveal reveal-delay-1">
+          <div class="game-card-image" style="background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a0a2e 100%); display: flex; align-items: center; justify-content: center;">
+            <div style="text-align: center;">
+              <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🏠</div>
+              <div style="font-size: 1.1rem; font-weight: 700; color: #c9a0ff;">Break In</div>
+            </div>
+          </div>
+          <div class="game-card-body">
+            <div class="game-card-badge"><span class="dot"></span> Supported</div>
+            <h3>Break In 1</h3>
+            <p>Full script support for Break In — survive the night with powerful features and tools at your disposal.</p>
+            <div class="game-card-id">Place ID: 4620170611 / 3851622790</div>
+          </div>
+        </div>
+
+        <!-- Evade -->
+        <div class="game-card reveal reveal-delay-2">
+          <div class="game-card-image" style="background: linear-gradient(135deg, #0a1628 0%, #162d50 50%, #0a1628 100%); display: flex; align-items: center; justify-content: center;">
+            <div style="text-align: center;">
+              <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🏃</div>
+              <div style="font-size: 1.1rem; font-weight: 700; color: #64b5f6;">Evade</div>
+            </div>
+          </div>
+          <div class="game-card-body">
+            <div class="game-card-badge"><span class="dot"></span> Supported</div>
+            <h3>Evade</h3>
+            <p>Dominate in Evade with our feature-rich script — stay ahead and survive every round effortlessly.</p>
+            <div class="game-card-id">Place ID: 9872472334</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= SCRIPT SECTION ======= -->
+  <section class="script-section" id="script">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">Get Started</div>
+        <h2 class="section-title">Load Ruby Hub</h2>
+        <p class="section-subtitle">Copy the script below and paste it into your executor to get started.</p>
+      </div>
+
+      <div class="script-block reveal">
+        <div class="script-header">
+          <div class="script-header-left">
+            <span class="script-dot script-dot-red"></span>
+            <span class="script-dot script-dot-yellow"></span>
+            <span class="script-dot script-dot-green"></span>
+            <span class="script-lang">Lua</span>
+          </div>
+          <button class="copy-btn" id="copy-code-btn" aria-label="Copy Script">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+            </svg>
+            Copy
+          </button>
+        </div>
+        <div class="script-body">
+          <code id="script-code">loadstring(game:HttpGet("https://rubyhub.vercel.app/loader.lua"))()</code>
+        </div>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card reveal reveal-delay-1">
+          <div class="step-number">1</div>
+          <h3>Copy Script</h3>
+          <p>Click the copy button above to copy the loader script.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-2">
+          <div class="step-number">2</div>
+          <h3>Paste in Executor</h3>
+          <p>Open your favorite executor and paste the script.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-3">
+          <div class="step-number">3</div>
+          <h3>Execute & Enjoy</h3>
+          <p>Hit execute and Ruby Hub will load automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= COMPARISON ======= -->
+  <section class="comparison" id="comparison">
+    <div class="comparison-glow"></div>
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">Comparison</div>
+        <h2 class="section-title">Why We're the Best</h2>
+        <p class="section-subtitle">The ultimate script hub, without the downsides.</p>
+      </div>
+
+      <div class="comparison-grid">
+        <!-- Ruby Hub Column -->
+        <div class="comparison-card ruby reveal reveal-delay-1">
+          <div class="comparison-card-header">
+            <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+              <path d="M20 4L34 14L28 36H12L6 14L20 4Z" fill="#E31B54"/>
+              <path d="M20 4L6 14H34L20 4Z" fill="#FF6B8A" opacity="0.7"/>
+              <path d="M20 4L14 14L20 36L26 14L20 4Z" fill="#FF8DA6" opacity="0.3"/>
+            </svg>
+            <h3>Ruby Hub</h3>
+          </div>
+          <ul class="comparison-list">
+            <li><span class="check-icon positive">✓</span> Free</li>
+            <li><span class="check-icon positive">✓</span> Quick Support</li>
+            <li><span class="check-icon positive">✓</span> Easy to Use</li>
+            <li><span class="check-icon positive">✓</span> Multi-Game Support</li>
+            <li><span class="check-icon positive">✓</span> Instant Updates</li>
+          </ul>
+        </div>
+
+        <!-- Others Column -->
+        <div class="comparison-card others reveal reveal-delay-2">
+          <div class="comparison-card-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28" opacity="0.5">
+              <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+            </svg>
+            <h3 style="color: var(--text-secondary);">Others</h3>
+          </div>
+          <ul class="comparison-list">
+            <li><span class="check-icon negative">✗</span> Paid</li>
+            <li><span class="check-icon negative">✗</span> Bad, Slow Support</li>
+            <li><span class="check-icon negative">✗</span> Complicated Setup</li>
+            <li><span class="check-icon negative">✗</span> Limited Game Support</li>
+            <li><span class="check-icon negative">✗</span> Slow Updates</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= TEAM SECTION ======= -->
+  <section class="team" id="team">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">Our Team</div>
+        <h2 class="section-title">About The Team</h2>
+        <p class="section-subtitle">Meet the people behind Ruby Hub.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card reveal reveal-delay-1">
+          <div class="team-avatar">D</div>
+          <h3>dausita</h3>
+          <span class="team-role">Founder</span>
+        </div>
+        <div class="team-card reveal reveal-delay-2">
+          <div class="team-avatar" style="background: linear-gradient(135deg, #7B2D8E, #5865F2);">B</div>
+          <h3>beraatwr</h3>
+          <span class="team-role">Owner &amp; Developer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA SECTION ======= -->
+  <section class="cta" id="cta">
+    <div class="cta-glow"></div>
+    <div class="cta-container">
+      <div class="section-badge reveal">What Are You Waiting For?</div>
+      <h2 class="section-title reveal reveal-delay-1">Start Using Ruby Hub</h2>
+      <p class="section-subtitle reveal reveal-delay-2" style="margin: 0 auto 2.5rem;">Unlock the power of Ruby Hub now, completely free. Join our community and level up your experience.</p>
+      <div class="cta-buttons reveal reveal-delay-3">
+        <button class="btn btn-primary" id="cta-copy-btn" aria-label="Copy Script">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+          </svg>
+          Get Script
+        </button>
+        <a href="https://discord.gg/Jvq7MtJKE2" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
+          </svg>
+          Join Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <svg viewBox="0 0 40 40" fill="none" width="24" height="24">
+          <path d="M20 4L34 14L28 36H12L6 14L20 4Z" fill="#E31B54"/>
+          <path d="M20 4L6 14H34L20 4Z" fill="#FF6B8A" opacity="0.7"/>
+          <path d="M20 4L14 14L20 36L26 14L20 4Z" fill="#FF8DA6" opacity="0.3"/>
+        </svg>
+        <span>Ruby Hub</span>
+      </div>
+      <p class="footer-copy">&copy; 2025 Ruby Hub. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#games">Games</a>
+        <a href="#team">Team</a>
+        <a href="https://discord.gg/Jvq7MtJKE2" target="_blank" rel="noopener noreferrer">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">✓ Script copied to clipboard!</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
