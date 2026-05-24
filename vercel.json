@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/loader.lua",
+      "destination": "/api/loader"
+    }
+  ]
+}
