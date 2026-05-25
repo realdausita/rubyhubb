@@ -1,409 +1,663 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruby Hub — The Ultimate Roblox Script Hub</title>
-  <meta name="description" content="Ruby Hub is a powerful, free Roblox script hub supporting Break In 1 and Evade. Join our community and enhance your gaming experience.">
-  <meta name="theme-color" content="#E31B54">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ruby Hub — The Ultimate Roblox Script Hub</title>
+<meta content="Ruby Hub is a powerful, free Roblox script hub supporting Break In 1 and Evade. Join our community and enhance your gaming experience." name="description"/>
+<meta content="#E31B54" name="theme-color"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ruby: {
+              DEFAULT: '#E31B54',
+              hover: '#C21545',
+              glow: 'rgba(227, 27, 84, 0.4)',
+              accent: '#00EAFF',
+            },
+            dark: {
+              950: '#050508',
+              900: '#0A0A0F',
+              800: '#12121A',
+              700: '#1A1A24',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #050508;
+      color: #FFFFFF;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    #cursor-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #E31B54;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    #cursor-outline {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(227, 27, 84, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .glass-card {
+      background: rgba(18, 18, 26, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(227, 27, 84, 0.3);
+      transform: translateY(-5px);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #FFFFFF 0%, #E31B54 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ruby-glow {
+      box-shadow: 0 0 20px rgba(227, 27, 84, 0.2);
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #050508; }
+    ::-webkit-scrollbar-thumb { background: #1A1A24; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #E31B54; }
+
+    .nav-scrolled {
+      background: rgba(5, 5, 8, 0.8) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .bg-grid-full {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      opacity: 0.2;
+      background-image: linear-gradient(#1A1A24 1px, transparent 1px), linear-gradient(90deg, #1A1A24 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+
+    .bg-glow-full-1 {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: rgba(227, 27, 84, 0.05);
+      filter: blur(150px);
+      border-radius: 50%;
+      z-index: -2;
+      pointer-events: none;
+      animation: pulse-slow 8s infinite alternate;
+    }
+
+    /* Mitamers Style Menu */
+    .menu-tab.active {
+      color: white;
+    }
+    .menu-tab.active::before {
+      content: '';
+      position: absolute;
+      left: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 16px;
+      background: #00EAFF;
+      box-shadow: 0 0 8px #00EAFF;
+    }
+    
+    .menu-content { display: none; }
+    .menu-content.active { display: block; }
+    
+    .custom-checkbox {
+      width: 14px;
+      height: 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .custom-checkbox.checked {
+      background: #00EAFF;
+      border-color: #00EAFF;
+    }
+    .custom-checkbox.checked::after {
+      content: '✓';
+      color: black;
+      font-size: 10px;
+      font-weight: bold;
+    }
+    
+    .custom-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      outline: none;
+    }
+    .custom-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #00EAFF;
+      cursor: pointer;
+      box-shadow: 0 0 5px #00EAFF;
+    }
+
+    #copyright-modal {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #copyright-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
 </head>
-<body>
-
-  <!-- Particle Background -->
-  <canvas id="particles-canvas"></canvas>
-
-  <!-- ======= NAVIGATION ======= -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="#" class="nav-logo">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="ruby-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#FF4D7D"/>
-              <stop offset="100%" style="stop-color:#E31B54"/>
-            </linearGradient>
-          </defs>
-          <path d="M20 4L34 14L28 36H12L6 14L20 4Z" fill="url(#ruby-grad)" opacity="0.9"/>
-          <path d="M20 4L6 14H34L20 4Z" fill="#FF6B8A" opacity="0.7"/>
-          <path d="M6 14L12 36H28L34 14H6Z" fill="url(#ruby-grad)"/>
-          <path d="M20 4L14 14L20 36L26 14L20 4Z" fill="#FF8DA6" opacity="0.3"/>
-        </svg>
-        <span>Ruby Hub</span>
-      </a>
-
-      <div class="nav-links" id="nav-links">
-        <a href="#features">Features</a>
-        <a href="#games">Games</a>
-        <a href="#script">Script</a>
-        <a href="#team">Team</a>
+<body class="antialiased">
+<div class="bg-grid-full"></div>
+<div class="bg-glow-full-1"></div>
+<canvas id="particles-canvas"></canvas>
+<div id="cursor-dot"></div>
+<div id="cursor-outline"></div>
+<!-- NAVIGATION -->
+<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-12" id="navbar">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<a class="flex items-center gap-3 group" href="#">
+<img alt="Ruby Hub" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1RBLFJnNWenadxh8Av76JgUVdll-cm4LCuHBtvEfJBfqPkBu95HsH0sOM1CuoiglAb5B0M6Yzw6AYH_t77Bc5FbFqd_TkI9mR2eY2sqDtDIc8cq-kCNG-8nvBqUvYGiyoVoPFtpqnr-v7GrUN9Lq7uPHFAkNRn0FnYrtf_8tcwoQctrL7IIqC51xnKiO1tVlTHwL2e5ORJ9upaB9EdGXYqoN4u-r0PMiiwu05B5Cx3nyweXPpj8AnEvVJW3Qn5lDbeNBdmf5r5QU"/>
+</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#features">Features</a>
+<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#preview">Menu</a>
+<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#games">Games</a>
+<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#script">Script</a>
+<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#team">Team</a>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden sm:flex items-center gap-2 bg-ruby text-white px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest ruby-glow hover:bg-ruby-hover transition-all" href="https://discord.gg/Jvq7MtJKE2" target="_blank">
+          Discord
+        </a>
+<button class="md:hidden text-white" id="mobile-menu-btn">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+<div class="relative z-10 max-w-4xl text-center reveal active">
+<div class="inline-flex items-center gap-2 bg-ruby/10 border border-ruby/20 px-4 py-1.5 rounded-full text-[10px] font-black text-ruby tracking-widest uppercase mb-8">
+<span class="w-2 h-2 bg-ruby rounded-full animate-ping"></span>
+        Free &amp; Open Script Hub
       </div>
-
-      <a href="https://discord.gg/Jvq7MtJKE2" target="_blank" rel="noopener noreferrer" class="nav-discord" id="nav-discord-btn">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
-        </svg>
-        Discord
-      </a>
-
-      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- ======= HERO ======= -->
-  <section class="hero" id="hero">
-    <div class="hero-bg">
-      <div class="hero-grid"></div>
-      <div class="hero-glow hero-glow-1"></div>
-      <div class="hero-glow hero-glow-2"></div>
-      <div class="hero-glow hero-glow-3"></div>
-      <div class="hero-lines"></div>
-    </div>
-
-    <div class="hero-content">
-      <div class="hero-badge">✦ Free & Open Script Hub</div>
-      <h1 class="hero-title">Ruby<span class="gradient-text">Hub</span></h1>
-      <p class="hero-subtitle">The ultimate free script hub for Roblox. Powerful scripts for your favorite games, seamless execution, zero cost.</p>
-      <div class="hero-buttons">
-        <button class="btn btn-primary" id="hero-copy-btn" aria-label="Copy Script">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
+<h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6">
+        Ruby<span class="gradient-text">Hub</span>
+</h1>
+<p class="text-xl md:text-2xl text-gray-400 font-medium leading-relaxed max-w-2xl mx-auto mb-12">
+        The ultimate free script hub for Roblox. Powerful scripts for your favorite games, seamless execution, <span class="text-white">zero cost.</span>
+</p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"><a class="group relative px-10 py-4 bg-ruby text-white rounded-xl font-black uppercase tracking-widest text-sm overflow-hidden transition-all hover:scale-105 active:scale-95 ruby-glow flex items-center justify-center" href="https://discord.gg/Jvq7MtJKE2" target="_blank">Try It Now</a>
+<button class="group relative px-10 py-4 bg-ruby text-white rounded-xl font-black uppercase tracking-widest text-sm overflow-hidden transition-all hover:scale-105 active:scale-95 ruby-glow" onclick="copyLoader()">
           Copy Script
         </button>
-        <a href="https://discord.gg/Jvq7MtJKE2" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
-          </svg>
+<a class="px-10 py-4 bg-dark-800 text-white rounded-xl font-black uppercase tracking-widest text-sm border border-white/5 hover:bg-dark-700 transition-all hover:scale-105 active:scale-95" href="https://discord.gg/Jvq7MtJKE2" target="_blank">
           Join Discord
         </a>
-      </div>
-
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="hero-stat-number">2+</span>
-          <span class="hero-stat-label">Games Supported</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-number">100%</span>
-          <span class="hero-stat-label">Free Forever</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-number">24/7</span>
-          <span class="hero-stat-label">Support</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======= FEATURES ======= -->
-  <section class="features" id="features">
-    <div class="section-container">
-      <div class="section-header reveal">
-        <div class="section-badge">Features</div>
-        <h2 class="section-title">Why Choose Ruby Hub?</h2>
-        <p class="section-subtitle">Every reason to choose Ruby Hub, none to doubt it.</p>
-      </div>
-
-      <div class="features-grid">
-        <!-- Feature 1 -->
-        <div class="feature-card reveal reveal-delay-1">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-            </svg>
-          </div>
-          <h3>100% Free</h3>
-          <p>Enjoy premium-level scripting at no cost — Ruby Hub is free for all, forever.</p>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
-            </svg>
-          </div>
-          <h3>Always Improving</h3>
-          <p>Ruby Hub is here for the long run and just keeps getting better with every update.</p>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="feature-card reveal reveal-delay-3">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-            </svg>
-          </div>
-          <h3>Fast Updates</h3>
-          <p>Ruby Hub is always up to date, so you never have to wait for script patches.</p>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="feature-card reveal reveal-delay-4">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
-            </svg>
-          </div>
-          <h3>Multi-Game Support</h3>
-          <p>Run scripts across multiple Roblox games with seamless compatibility and stability.</p>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="feature-card reveal reveal-delay-5">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <h3>Secure & Safe</h3>
-          <p>We keep our scripts clean and secure, ensuring you're always protected.</p>
-        </div>
-
-        <!-- Feature 6 -->
-        <div class="feature-card reveal reveal-delay-6">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
-            </svg>
-          </div>
-          <h3>Active Community</h3>
-          <p>Join our growing Discord community for support, updates, and script requests.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======= SUPPORTED GAMES ======= -->
-  <section class="games" id="games">
-    <div class="section-container">
-      <div class="section-header reveal">
-        <div class="section-badge">Supported Games</div>
-        <h2 class="section-title">Games We Support</h2>
-        <p class="section-subtitle">Ruby Hub works seamlessly with these popular Roblox games.</p>
-      </div>
-
-      <div class="games-grid">
-        <!-- Break In 1 -->
-        <div class="game-card reveal reveal-delay-1">
-          <div class="game-card-image" style="background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a0a2e 100%); display: flex; align-items: center; justify-content: center;">
-            <div style="text-align: center;">
-              <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🏠</div>
-              <div style="font-size: 1.1rem; font-weight: 700; color: #c9a0ff;">Break In</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-8 border-t border-white/5 pt-12">
+<div class="flex flex-col">
+<span class="text-4xl font-black text-ruby mb-1">2+</span>
+<span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Games Supported</span>
+</div>
+<div class="flex flex-col border-x border-white/5">
+<span class="text-4xl font-black text-ruby mb-1">100%</span>
+<span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Free Forever</span>
+</div>
+<div class="flex flex-col">
+<span class="text-4xl font-black text-ruby mb-1">24/7</span>
+<span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Community Support</span>
+</div>
+</div>
+</div>
+</section>
+<!-- FEATURES -->
+<section class="py-24 px-6 relative" id="features">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16 reveal">
+<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Core Advantage</h2>
+<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">Why Choose Ruby Hub?</h3>
+<p class="text-gray-400 max-w-xl mx-auto">Engineered for performance and stability across multiple environments.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="glass-card p-10 rounded-2xl reveal border border-white/5 bg-dark-900/40">
+<div class="w-12 h-12 bg-ruby/10 rounded-lg flex items-center justify-center mb-8 border border-ruby/20">
+<svg class="w-6 h-6 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h4 class="text-lg font-black uppercase tracking-widest mb-4">100% Free</h4>
+<p class="text-sm text-gray-400 leading-relaxed font-medium">Enjoy premium-level scripting at no cost — Ruby Hub is free for all, forever.</p>
+</div>
+<div class="glass-card p-10 rounded-2xl reveal border border-white/5 bg-dark-900/40">
+<div class="w-12 h-12 bg-ruby/10 rounded-lg flex items-center justify-center mb-8 border border-ruby/20">
+<svg class="w-6 h-6 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h4 class="text-lg font-black uppercase tracking-widest mb-4">Always Improving</h4>
+<p class="text-sm text-gray-400 leading-relaxed font-medium">Ruby Hub is here for the long run and just keeps getting better with every update.</p>
+</div>
+<div class="glass-card p-10 rounded-2xl reveal border border-white/5 bg-dark-900/40">
+<div class="w-12 h-12 bg-ruby/10 rounded-lg flex items-center justify-center mb-8 border border-ruby/20">
+<svg class="w-6 h-6 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 12h16m-8-8v16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h4 class="text-lg font-black uppercase tracking-widest mb-4">Fast Updates</h4>
+<p class="text-sm text-gray-400 leading-relaxed font-medium">Ruby Hub is always up to date, so you never have to wait for script patches.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- INTERACTIVE MENU PREVIEW (MITAMERS STYLE) -->
+<section class="py-24 px-6 relative" id="preview">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-16 reveal">
+<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Interface</h2>
+<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">Interactive Cheat Menu</h3>
+<p class="text-gray-400 max-w-xl mx-auto">Experience our high-fidelity custom user interface built for performance and speed.</p>
+</div>
+<div class="bg-[#0b0c0f] w-full max-w-4xl mx-auto rounded-sm shadow-2xl border border-white/5 flex overflow-hidden aspect-[4/3] md:aspect-[16/9] reveal">
+<!-- Sidebar -->
+<div class="w-40 border-r border-white/5 flex flex-col p-6 font-medium text-xs text-gray-500">
+<div class="mb-10 opacity-30 uppercase tracking-widest text-[9px] font-bold">Categories</div>
+<div class="space-y-6">
+<button class="menu-tab active relative flex items-center transition-colors uppercase tracking-widest font-bold" onclick="switchTab('combat')">Combat</button>
+<button class="menu-tab relative flex items-center hover:text-white transition-colors uppercase tracking-widest font-bold" onclick="switchTab('visuals')">Visuals</button>
+<button class="menu-tab relative flex items-center hover:text-white transition-colors uppercase tracking-widest font-bold" onclick="switchTab('misc')">Misc</button>
+</div>
+</div>
+<!-- Content Area -->
+<div class="flex-1 p-8 bg-[#0d0e12]">
+<div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+<div class="flex gap-8 text-[11px] font-bold uppercase tracking-wider text-white">
+<span class="border-b border-[#00EAFF] pb-4 cursor-pointer">Player Features</span>
+<span class="text-gray-500 hover:text-white transition-colors cursor-pointer pb-4">Aimbot</span>
+</div>
+<div class="text-[11px] font-black text-ruby uppercase tracking-widest italic">Ruby Software</div>
+</div>
+<!-- Combat Tab -->
+<div class="menu-content active h-full" id="menu-combat">
+<div class="grid grid-cols-2 gap-8">
+<!-- Left Column -->
+<div class="border border-white/5 p-5 bg-[#0a0a0e]">
+<h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">Movement Features</h5>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-[11px] text-gray-300 font-medium">WalkSpeed Boost</span>
+<div class="custom-checkbox checked" onclick="this.classList.toggle('checked')"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[11px] text-gray-300 font-medium">JumpPower Boost</span>
+<div class="custom-checkbox" onclick="this.classList.toggle('checked')"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[11px] text-gray-300 font-medium">Fly (Press F)</span>
+<div class="custom-checkbox" onclick="this.classList.toggle('checked')"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[11px] text-ruby font-bold">Infinite Jump</span>
+<div class="custom-checkbox checked" onclick="this.classList.toggle('checked')"></div>
+</div>
+</div>
+</div>
+<!-- Right Column -->
+<div class="border border-white/5 p-5 bg-[#0a0a0e]">
+<h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">Settings</h5>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between text-[10px] text-gray-400 uppercase font-bold mb-3">
+<span>Speed Multiplier</span>
+<span class="text-ruby">2.50</span>
+</div>
+<input class="custom-slider" max="10" min="1" step="0.1" type="range" value="2.5"/>
+</div>
+<div>
+<div class="flex justify-between text-[10px] text-gray-400 uppercase font-bold mb-3">
+<span>Jump Multiplier</span>
+<span class="text-ruby">1.00</span>
+</div>
+<input class="custom-slider" max="5" min="1" step="0.1" type="range" value="1"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Visuals Tab (Template) -->
+<div class="menu-content" id="menu-visuals">
+<div class="grid grid-cols-2 gap-8">
+<div class="border border-white/5 p-5 bg-[#0a0a0e]">
+<h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">World ESP</h5>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-[11px] text-gray-300 font-medium">Box ESP</span>
+<div class="custom-checkbox checked" onclick="this.classList.toggle('checked')"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[11px] text-gray-300 font-medium">Name ESP</span>
+<div class="custom-checkbox checked" onclick="this.classList.toggle('checked')"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Misc Tab (Template) -->
+<div class="menu-content" id="menu-misc">
+<div class="p-5 text-gray-500 text-xs font-medium italic">Additional settings coming soon...</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- GAMES -->
+<section class="py-24 px-6 bg-dark-900/50" id="games">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16 reveal">
+<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Official Library</h2>
+<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">Games We Support</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Break In -->
+<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5">
+<div class="aspect-video w-full bg-[#1a0a2e] flex items-center justify-center relative overflow-hidden">
+<img alt="Break In" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGaBTUKj2xrHgB2SZKjuxM_x-O3FGiWJOU5K0OrMjC6C0qnPfFD0ybfYXxD1lT18zvExS94vHwCgq4c-ShF93Xz70twrHtRfK5Nch11-hC9ox0w2E9YmU6Deo5i_nlabUz-cTbyfgKKOb1mMnuvEBucvOUERTGjqXImfLv0bggRBh1XQFv5zrseAQnnyMtew3YwBqJ7jFuV9jvswz9y9SuE08skQ1NYddpqFUH_JpdHfZqIG7k7ZhoFBQiUdkNqKpkpGvP6V5ohJI"/>
+<div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-6 text-center">
+<span class="bg-ruby text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-lg mb-4">View Features</span>
+<p class="text-xs text-gray-300 font-medium max-w-xs">Includes Auto-Cook, Silent Aim, Godmode, and more.</p>
+</div>
+</div>
+<div class="p-10 bg-dark-800">
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+<span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Active Support</span>
+</div>
+<h4 class="text-3xl font-black mb-4 uppercase italic">Break In 1</h4>
+<p class="text-sm text-gray-400 mb-8 font-medium leading-relaxed">Full script support for Break In — survive the night with powerful features and automated tools at your disposal.</p>
+<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/40 px-4 py-2 rounded-lg w-fit">
+<span class="text-ruby font-bold">PLACE:</span> 4620170611 / 3851622790
             </div>
-          </div>
-          <div class="game-card-body">
-            <div class="game-card-badge"><span class="dot"></span> Supported</div>
-            <h3>Break In 1</h3>
-            <p>Full script support for Break In — survive the night with powerful features and tools at your disposal.</p>
-            <div class="game-card-id">Place ID: 4620170611 / 3851622790</div>
-          </div>
-        </div>
-
-        <!-- Evade -->
-        <div class="game-card reveal reveal-delay-2">
-          <div class="game-card-image" style="background: linear-gradient(135deg, #0a1628 0%, #162d50 50%, #0a1628 100%); display: flex; align-items: center; justify-content: center;">
-            <div style="text-align: center;">
-              <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🏃</div>
-              <div style="font-size: 1.1rem; font-weight: 700; color: #64b5f6;">Evade</div>
+</div>
+</div>
+<!-- Evade -->
+<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5">
+<div class="aspect-video w-full bg-[#0a1628] flex items-center justify-center relative overflow-hidden">
+<img alt="Evade" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKgV4MOTFq1QStmP-OBapyfRYyH7Nw6Vn24Vpg4dX4UGBhHzlSfdReq2imotsllouO3Xq9fD_r1p0QEncLeyD-uYxq2eQ30BiAePSbPV_Y6XbQ6pk0XwumihpwZIj2V82HXb8HqjZpupgWhWo6KOZQw6QxiB5jCRgE4UvIZvZYZEHVfU9rcxN79ghaFBi5bh1ZQWB0vpJ_Lbx9aMp1kokuYRBspMlh1OYeoqA3EVj6ibS3RzL3s-CmnwGPrQsQARzei1LwjP39FHU"/>
+<div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-6 text-center">
+<span class="bg-ruby text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-lg mb-4">View Features</span>
+<p class="text-xs text-gray-300 font-medium max-w-xs">Includes Speed Exploit, Auto-Revive, ESP, and Teleportation.</p>
+</div>
+</div>
+<div class="p-10 bg-dark-800">
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+<span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Active Support</span>
+</div>
+<h4 class="text-3xl font-black mb-4 uppercase italic">Evade</h4>
+<p class="text-sm text-gray-400 mb-8 font-medium leading-relaxed">Dominate in Evade with our feature-rich script — stay ahead and survive every round effortlessly with ESP and speed tools.</p>
+<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/40 px-4 py-2 rounded-lg w-fit">
+<span class="text-ruby font-bold">PLACE:</span> 9872472334
             </div>
-          </div>
-          <div class="game-card-body">
-            <div class="game-card-badge"><span class="dot"></span> Supported</div>
-            <h3>Evade</h3>
-            <p>Dominate in Evade with our feature-rich script — stay ahead and survive every round effortlessly.</p>
-            <div class="game-card-id">Place ID: 9872472334</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======= SCRIPT SECTION ======= -->
-  <section class="script-section" id="script">
-    <div class="section-container">
-      <div class="section-header reveal">
-        <div class="section-badge">Get Started</div>
-        <h2 class="section-title">Load Ruby Hub</h2>
-        <p class="section-subtitle">Copy the script below and paste it into your executor to get started.</p>
-      </div>
-
-      <div class="script-block reveal">
-        <div class="script-header">
-          <div class="script-header-left">
-            <span class="script-dot script-dot-red"></span>
-            <span class="script-dot script-dot-yellow"></span>
-            <span class="script-dot script-dot-green"></span>
-            <span class="script-lang">Lua</span>
-          </div>
-          <button class="copy-btn" id="copy-code-btn" aria-label="Copy Script">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-            </svg>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SCRIPT -->
+<section class="py-24 px-6 relative overflow-hidden" id="script">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-16 reveal">
+<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Installation</h2>
+<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">Load Ruby Hub</h3>
+<p class="text-gray-400">Copy the script below and paste it into your favorite executor.</p>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden border border-white/10 reveal bg-black/40">
+<div class="bg-white/5 px-6 py-4 flex items-center justify-between border-b border-white/5">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+<div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+<div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+</div>
+<span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">loader.lua</span>
+<button class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors bg-white/5 px-4 py-1.5 rounded-md border border-white/5 active:scale-95" onclick="copyLoader()">
             Copy
           </button>
-        </div>
-        <div class="script-body">
-          <code id="script-code">loadstring(game:HttpGet("https://rubyhub.vercel.app/loader.lua"))()</code>
-        </div>
-      </div>
+</div>
+<div class="p-10 text-center">
+<code class="text-ruby font-mono text-lg md:text-xl break-all select-all leading-relaxed" id="script-code">loadstring(game:HttpGet("https://rubyhubb.vercel.app/loader.lua"))()</code>
+</div>
+</div>
+</div>
+</section>
+<!-- TEAM -->
+<section class="py-24 px-6" id="team">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16 reveal">
+<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Contributors</h2>
+<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">About The Team</h3>
+</div>
+<div class="flex flex-wrap justify-center gap-16">
+<div class="group reveal text-center">
+<div class="w-32 h-32 rounded-full bg-dark-800 border-2 border-white/5 flex items-center justify-center text-4xl font-black mb-6 group-hover:border-ruby transition-all duration-500 shadow-xl overflow-hidden">
+<div class="bg-ruby w-full h-full flex items-center justify-center text-white">D</div>
+</div>
+<h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">dausita</h4>
+<p class="text-ruby text-[10px] font-black uppercase tracking-widest">Founder</p>
+</div>
+<div class="group reveal text-center">
+<div class="w-32 h-32 rounded-full bg-gradient-to-br from-[#7B2D8E] to-[#5865F2] border-2 border-white/5 flex items-center justify-center text-4xl font-black mb-6 group-hover:border-ruby transition-all duration-500 shadow-xl overflow-hidden">
+<div class="bg-dark-700 w-full h-full flex items-center justify-center text-white">B</div>
+</div>
+<h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">beraatwr</h4>
+<p class="text-ruby text-[10px] font-black uppercase tracking-widest">Owner &amp; Developer</p>
+</div>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="py-12 px-6 border-t border-white/5 mt-20 relative z-10">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="flex items-center gap-3">
+<img alt="Ruby Hub" class="h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1RBLFJnNWenadxh8Av76JgUVdll-cm4LCuHBtvEfJBfqPkBu95HsH0sOM1CuoiglAb5B0M6Yzw6AYH_t77Bc5FbFqd_TkI9mR2eY2sqDtDIc8cq-kCNG-8nvBqUvYGiyoVoPFtpqnr-v7GrUN9Lq7uPHFAkNRn0FnYrtf_8tcwoQctrL7IIqC51xnKiO1tVlTHwL2e5ORJ9upaB9EdGXYqoN4u-r0PMiiwu05B5Cx3nyweXPpj8AnEvVJW3Qn5lDbeNBdmf5r5QU"/>
+</div>
+<button class="text-gray-500 text-[10px] font-black uppercase tracking-widest hover:text-ruby transition-colors" id="copyright-btn">
+        © 2026 Ruby Hub. All rights reserved.
+      </button>
+<div class="flex gap-8 text-[10px] font-black uppercase tracking-widest text-gray-500">
+<a class="hover:text-white transition-colors" href="#features">Features</a>
+<a class="hover:text-white transition-colors" href="#games">Games</a>
+<a class="hover:text-white transition-colors" href="https://discord.gg/Jvq7MtJKE2" target="_blank">Discord</a>
+</div>
+</div>
+</footer>
+<!-- Copyright Modal -->
+<div class="fixed inset-0 z-[10000] flex items-center justify-center p-4" id="copyright-modal">
+<div class="absolute inset-0 bg-black/80 backdrop-blur-md" id="modal-backdrop"></div>
+<div class="glass-card w-full max-w-md p-10 rounded-2xl relative z-10 transform transition-transform scale-95 border border-white/10" id="modal-content">
+<h3 class="text-2xl font-black mb-6 uppercase italic flex items-center gap-3">
+<span class="w-2 h-8 bg-ruby"></span>
+        Copyright Notice
+      </h3>
+<p class="text-gray-400 mb-8 leading-relaxed text-sm font-medium">Ruby Hub is a free, open project. We reserve the rights to our unique codebase and UI design. Please do not re-distribute without credit.</p>
+<button class="w-full py-4 bg-ruby hover:bg-ruby-hover text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl font-bold transition-all" id="close-modal-btn">Got it</button>
+</div>
+</div>
+<!-- Toast -->
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-white text-black px-10 py-3 rounded-lg font-black uppercase tracking-widest text-xs shadow-2xl transition-all duration-300 translate-y-20 opacity-0 pointer-events-none z-[10001]" id="toast">
+    ✓ Copied
+  </div>
+<script>
+    // Constants
+    const SCRIPT_URL = 'loadstring(game:HttpGet("https://rubyhubb.vercel.app/loader.lua"))()';
 
-      <div class="steps-grid">
-        <div class="step-card reveal reveal-delay-1">
-          <div class="step-number">1</div>
-          <h3>Copy Script</h3>
-          <p>Click the copy button above to copy the loader script.</p>
-        </div>
-        <div class="step-card reveal reveal-delay-2">
-          <div class="step-number">2</div>
-          <h3>Paste in Executor</h3>
-          <p>Open your favorite executor and paste the script.</p>
-        </div>
-        <div class="step-card reveal reveal-delay-3">
-          <div class="step-number">3</div>
-          <h3>Execute & Enjoy</h3>
-          <p>Hit execute and Ruby Hub will load automatically.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    // Particle System
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const particleCount = 60;
 
-  <!-- ======= COMPARISON ======= -->
-  <section class="comparison" id="comparison">
-    <div class="comparison-glow"></div>
-    <div class="section-container">
-      <div class="section-header reveal">
-        <div class="section-badge">Comparison</div>
-        <h2 class="section-title">Why We're the Best</h2>
-        <p class="section-subtitle">The ultimate script hub, without the downsides.</p>
-      </div>
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
 
-      <div class="comparison-grid">
-        <!-- Ruby Hub Column -->
-        <div class="comparison-card ruby reveal reveal-delay-1">
-          <div class="comparison-card-header">
-            <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
-              <path d="M20 4L34 14L28 36H12L6 14L20 4Z" fill="#E31B54"/>
-              <path d="M20 4L6 14H34L20 4Z" fill="#FF6B8A" opacity="0.7"/>
-              <path d="M20 4L14 14L20 36L26 14L20 4Z" fill="#FF8DA6" opacity="0.3"/>
-            </svg>
-            <h3>Ruby Hub</h3>
-          </div>
-          <ul class="comparison-list">
-            <li><span class="check-icon positive">✓</span> Free</li>
-            <li><span class="check-icon positive">✓</span> Quick Support</li>
-            <li><span class="check-icon positive">✓</span> Easy to Use</li>
-            <li><span class="check-icon positive">✓</span> Multi-Game Support</li>
-            <li><span class="check-icon positive">✓</span> Instant Updates</li>
-          </ul>
-        </div>
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.5;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.4;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+      }
+      draw() {
+        ctx.fillStyle = `rgba(227, 27, 84, ${this.opacity})`;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+      }
+    }
 
-        <!-- Others Column -->
-        <div class="comparison-card others reveal reveal-delay-2">
-          <div class="comparison-card-header">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28" opacity="0.5">
-              <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
-            </svg>
-            <h3 style="color: var(--text-secondary);">Others</h3>
-          </div>
-          <ul class="comparison-list">
-            <li><span class="check-icon negative">✗</span> Paid</li>
-            <li><span class="check-icon negative">✗</span> Bad, Slow Support</li>
-            <li><span class="check-icon negative">✗</span> Complicated Setup</li>
-            <li><span class="check-icon negative">✗</span> Limited Game Support</li>
-            <li><span class="check-icon negative">✗</span> Slow Updates</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+    function initParticles() {
+      for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+    }
 
-  <!-- ======= TEAM SECTION ======= -->
-  <section class="team" id="team">
-    <div class="section-container">
-      <div class="section-header reveal">
-        <div class="section-badge">Our Team</div>
-        <h2 class="section-title">About The Team</h2>
-        <p class="section-subtitle">Meet the people behind Ruby Hub.</p>
-      </div>
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animate);
+    }
 
-      <div class="team-grid">
-        <div class="team-card reveal reveal-delay-1">
-          <div class="team-avatar">D</div>
-          <h3>dausita</h3>
-          <span class="team-role">Founder</span>
-        </div>
-        <div class="team-card reveal reveal-delay-2">
-          <div class="team-avatar" style="background: linear-gradient(135deg, #7B2D8E, #5865F2);">B</div>
-          <h3>beraatwr</h3>
-          <span class="team-role">Owner &amp; Developer</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    // Cursor
+    const dot = document.getElementById('cursor-dot');
+    const outline = document.getElementById('cursor-outline');
+    let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0, outlineX = 0, outlineY = 0;
 
-  <!-- ======= CTA SECTION ======= -->
-  <section class="cta" id="cta">
-    <div class="cta-glow"></div>
-    <div class="cta-container">
-      <div class="section-badge reveal">What Are You Waiting For?</div>
-      <h2 class="section-title reveal reveal-delay-1">Start Using Ruby Hub</h2>
-      <p class="section-subtitle reveal reveal-delay-2" style="margin: 0 auto 2.5rem;">Unlock the power of Ruby Hub now, completely free. Join our community and level up your experience.</p>
-      <div class="cta-buttons reveal reveal-delay-3">
-        <button class="btn btn-primary" id="cta-copy-btn" aria-label="Copy Script">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-          Get Script
-        </button>
-        <a href="https://discord.gg/Jvq7MtJKE2" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
-          </svg>
-          Join Discord
-        </a>
-      </div>
-    </div>
-  </section>
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX; mouseY = e.clientY;
+    });
 
-  <!-- ======= FOOTER ======= -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-logo">
-        <svg viewBox="0 0 40 40" fill="none" width="24" height="24">
-          <path d="M20 4L34 14L28 36H12L6 14L20 4Z" fill="#E31B54"/>
-          <path d="M20 4L6 14H34L20 4Z" fill="#FF6B8A" opacity="0.7"/>
-          <path d="M20 4L14 14L20 36L26 14L20 4Z" fill="#FF8DA6" opacity="0.3"/>
-        </svg>
-        <span>Ruby Hub</span>
-      </div>
-      <p class="footer-copy">&copy; 2025 Ruby Hub. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="#features">Features</a>
-        <a href="#games">Games</a>
-        <a href="#team">Team</a>
-        <a href="https://discord.gg/Jvq7MtJKE2" target="_blank" rel="noopener noreferrer">Discord</a>
-      </div>
-    </div>
-  </footer>
+    function updateCursor() {
+      dotX = mouseX; dotY = mouseY;
+      dot.style.left = `${dotX - 4}px`; dot.style.top = `${dotY - 4}px`;
+      outlineX += (mouseX - outlineX) * 0.15; outlineY += (mouseY - outlineY) * 0.15;
+      outline.style.left = `${outlineX - 20}px`; outline.style.top = `${outlineY - 20}px`;
+      requestAnimationFrame(updateCursor);
+    }
 
-  <!-- Toast Notification -->
-  <div class="toast" id="toast">✓ Script copied to clipboard!</div>
+    // Utility Functions
+    function copyLoader() {
+      navigator.clipboard.writeText(SCRIPT_URL);
+      const toast = document.getElementById('toast');
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
 
-  <script src="script.js"></script>
-</body>
-</html>
+    function switchTab(tabId) {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.menu-content').forEach(c => c.classList.remove('active'));
+      
+      const activeTab = Array.from(document.querySelectorAll('.menu-tab')).find(t => t.textContent.toLowerCase().includes(tabId));
+      if (activeTab) activeTab.classList.add('active');
+      
+      document.getElementById(`menu-${tabId}`).classList.add('active');
+    }
+
+    // Modal Logic
+    const copyrightBtn = document.getElementById('copyright-btn');
+    const modal = document.getElementById('copyright-modal');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const backdrop = document.getElementById('modal-backdrop');
+
+    copyrightBtn.onclick = () => modal.classList.add('active');
+    closeBtn.onclick = () => modal.classList.remove('active');
+    backdrop.onclick = () => modal.classList.remove('active');
+
+    // Scroll Reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+
+    // Initialize
+    window.onload = () => {
+      window.addEventListener('resize', resize);
+      resize();
+      initParticles();
+      animate();
+      updateCursor();
+      document.querySelectorAll('.reveal').forEach(r => revealObserver.observe(r));
+      
+      window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+        else nav.classList.remove('nav-scrolled');
+      });
+    };
+  </script>
+</body></html>
