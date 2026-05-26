@@ -32,6 +32,13 @@
           },
           animation: {
             'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            }
           }
         }
       }
@@ -78,11 +85,12 @@
       background: rgba(18, 18, 26, 0.6);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .glass-card:hover {
-      border-color: rgba(227, 27, 84, 0.3);
-      transform: translateY(-5px);
+      border-color: rgba(227, 27, 84, 0.4);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -20px rgba(227, 27, 84, 0.3);
     }
 
     .reveal {
@@ -112,7 +120,7 @@
 
     .nav-scrolled {
       background: rgba(5, 5, 8, 0.8) !important;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
@@ -133,7 +141,7 @@
       transform: translate(-50%, -50%);
       width: 800px;
       height: 800px;
-      background: rgba(227, 27, 84, 0.05);
+      background: rgba(227, 27, 84, 0.08);
       filter: blur(150px);
       border-radius: 50%;
       z-index: -2;
@@ -191,8 +199,8 @@
     }
     .custom-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 1000px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: #00EAFF;
       cursor: pointer;
@@ -252,7 +260,8 @@
 <p class="text-xl md:text-2xl text-gray-400 font-medium leading-relaxed max-w-2xl mx-auto mb-12">
         The ultimate free script hub for Roblox. Powerful scripts for your favorite games, seamless execution, <span class="text-white">zero cost.</span>
 </p>
-<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"><a class="group relative px-10 py-4 bg-ruby text-white rounded-xl font-black uppercase tracking-widest text-sm overflow-hidden transition-all hover:scale-105 active:scale-95 ruby-glow flex items-center justify-center" href="https://discord.gg/Jvq7MtJKE2" target="_blank">Try It Now</a>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+<a class="group relative px-10 py-4 bg-ruby text-white rounded-xl font-black uppercase tracking-widest text-sm overflow-hidden transition-all hover:scale-105 active:scale-95 ruby-glow flex items-center justify-center" href="https://discord.gg/Jvq7MtJKE2" target="_blank">Try It Now</a>
 <button class="group relative px-10 py-4 bg-ruby text-white rounded-xl font-black uppercase tracking-widest text-sm overflow-hidden transition-all hover:scale-105 active:scale-95 ruby-glow" onclick="copyLoader()">
           Copy Script
         </button>
@@ -309,7 +318,7 @@
 </div>
 </div>
 </section>
-<!-- INTERACTIVE MENU PREVIEW (MITAMERS STYLE) -->
+<!-- INTERACTIVE MENU PREVIEW -->
 <section class="py-24 px-6 relative" id="preview">
 <div class="max-w-6xl mx-auto">
 <div class="text-center mb-16 reveal">
@@ -317,7 +326,7 @@
 <h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">Interactive Cheat Menu</h3>
 <p class="text-gray-400 max-w-xl mx-auto">Experience our high-fidelity custom user interface built for performance and speed.</p>
 </div>
-<div class="bg-[#0b0c0f] w-full max-w-4xl mx-auto rounded-sm shadow-2xl border border-white/5 flex overflow-hidden aspect-[4/3] md:aspect-[16/9] reveal">
+<div class="bg-[#0b0c0f] w-full max-w-4xl mx-auto rounded-sm shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10 flex overflow-hidden aspect-[4/3] md:aspect-[16/9] reveal">
 <!-- Sidebar -->
 <div class="w-40 border-r border-white/5 flex flex-col p-6 font-medium text-xs text-gray-500">
 <div class="mb-10 opacity-30 uppercase tracking-widest text-[9px] font-bold">Categories</div>
@@ -340,7 +349,7 @@
 <div class="menu-content active h-full" id="menu-combat">
 <div class="grid grid-cols-2 gap-8">
 <!-- Left Column -->
-<div class="border border-white/5 p-5 bg-[#0a0a0e]">
+<div class="border border-white/5 p-5 bg-[#0a0a0e] rounded-sm">
 <h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">Movement Features</h5>
 <div class="space-y-4">
 <div class="flex items-center justify-between">
@@ -362,7 +371,7 @@
 </div>
 </div>
 <!-- Right Column -->
-<div class="border border-white/5 p-5 bg-[#0a0a0e]">
+<div class="border border-white/5 p-5 bg-[#0a0a0e] rounded-sm">
 <h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">Settings</h5>
 <div class="space-y-8">
 <div>
@@ -383,10 +392,10 @@
 </div>
 </div>
 </div>
-<!-- Visuals Tab (Template) -->
-<div class="menu-content" id="menu-visuals">
+<!-- Visuals Tab -->
+<div class="menu-content h-full" id="menu-visuals">
 <div class="grid grid-cols-2 gap-8">
-<div class="border border-white/5 p-5 bg-[#0a0a0e]">
+<div class="border border-white/5 p-5 bg-[#0a0a0e] rounded-sm">
 <h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">World ESP</h5>
 <div class="space-y-4">
 <div class="flex items-center justify-between">
@@ -401,7 +410,7 @@
 </div>
 </div>
 </div>
-<!-- Misc Tab (Template) -->
+<!-- Misc Tab -->
 <div class="menu-content" id="menu-misc">
 <div class="p-5 text-gray-500 text-xs font-medium italic">Additional settings coming soon...</div>
 </div>
@@ -410,7 +419,7 @@
 </div>
 </section>
 <!-- GAMES -->
-<section class="py-24 px-6 bg-dark-900/50" id="games">
+<section class="py-24 px-6 bg-dark-900/30" id="games">
 <div class="max-w-7xl mx-auto">
 <div class="text-center mb-16 reveal">
 <h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Official Library</h2>
@@ -418,64 +427,64 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 <!-- Break In -->
-<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5 h-full flex flex-col">
+<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5 h-full flex flex-col glass-card !bg-transparent">
 <div class="aspect-video w-full bg-[#1a0a2e] flex items-center justify-center relative overflow-hidden">
-<img alt="Break In" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGaBTUKj2xrHgB2SZKjuxM_x-O3FGiWJOU5K0OrMjC6C0qnPfFD0ybfYXxD1lT18zvExS94vHwCgq4c-ShF93Xz70twrHtRfK5Nch11-hC9ox0w2E9YmU6Deo5i_nlabUz-cTbyfgKKOb1mMnuvEBucvOUERTGjqXImfLv0bggRBh1XQFv5zrseAQnnyMtew3YwBqJ7jFuV9jvswz9y9SuE08skQ1NYddpqFUH_JpdHfZqIG7k7ZhoFBQiUdkNqKpkpGvP6V5ohJI"/>
-<div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-6 text-center">
+<img alt="Break In" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGaBTUKj2xrHgB2SZKjuxM_x-O3FGiWJOU5K0OrMjC6C0qnPfFD0ybfYXxD1lT18zvExS94vHwCgq4c-ShF93Xz70twrHtRfK5Nch11-hC9ox0w2E9YmU6Deo5i_nlabUz-cTbyfgKKOb1mMnuvEBucvOUERTGjqXImfLv0bggRBh1XQFv5zrseAQnnyMtew3YwBqJ7jFuV9jvswz9y9SuE08skQ1NYddpqFUH_JpdHfZqIG7k7ZhoFBQiUdkNqKpkpGvP6V5ohJI"/>
+<div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
 <span class="bg-ruby text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-lg mb-4">View Features</span>
 <p class="text-xs text-gray-300 font-medium max-w-xs">Includes Auto-Cook, Silent Aim, Godmode, and more.</p>
 </div>
 </div>
-<div class="p-8 bg-dark-800 flex-1 flex flex-col">
+<div class="p-8 bg-dark-800/80 flex-1 flex flex-col border-t border-white/5">
 <div class="flex items-center gap-2 mb-6">
 <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
 <span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Active Support</span>
 </div>
 <h4 class="text-2xl font-black mb-4 uppercase italic">Break In 1</h4>
 <p class="text-xs text-gray-400 mb-8 font-medium leading-relaxed flex-1">Full script support for Break In — survive the night with powerful features and automated tools at your disposal.</p>
-<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/40 px-4 py-2 rounded-lg w-fit">
+<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/60 px-4 py-2 rounded-lg w-fit border border-white/5">
 <span class="text-ruby font-bold">PLACE:</span> 4620170611 / 3851622790
             </div>
 </div>
 </div>
 <!-- Evade -->
-<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5 h-full flex flex-col">
+<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5 h-full flex flex-col glass-card !bg-transparent">
 <div class="aspect-video w-full bg-[#0a1628] flex items-center justify-center relative overflow-hidden">
-<img alt="Evade" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKgV4MOTFq1QStmP-OBapyfRYyH7Nw6Vn24Vpg4dX4UGBhHzlSfdReq2imotsllouO3Xq9fD_r1p0QEncLeyD-uYxq2eQ30BiAePSbPV_Y6XbQ6pk0XwumihpwZIj2V82HXb8HqjZpupgWhWo6KOZQw6QxiB5jCRgE4UvIZvZYZEHVfU9rcxN79ghaFBi5bh1ZQWB0vpJ_Lbx9aMp1kokuYRBspMlh1OYeoqA3EVj6ibS3RzL3s-CmnwGPrQsQARzei1LwjP39FHU"/>
-<div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-6 text-center">
+<img alt="Evade" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKgV4MOTFq1QStmP-OBapyfRYyH7Nw6Vn24Vpg4dX4UGBhHzlSfdReq2imotsllouO3Xq9fD_r1p0QEncLeyD-uYxq2eQ30BiAePSbPV_Y6XbQ6pk0XwumihpwZIj2V82HXb8HqjZpupgWhWo6KOZQw6QxiB5jCRgE4UvIZvZYZEHVfU9rcxN79ghaFBi5bh1ZQWB0vpJ_Lbx9aMp1kokuYRBspMlh1OYeoqA3EVj6ibS3RzL3s-CmnwGPrQsQARzei1LwjP39FHU"/>
+<div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
 <span class="bg-ruby text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-lg mb-4">View Features</span>
 <p class="text-xs text-gray-300 font-medium max-w-xs">Includes Speed Exploit, Auto-Revive, ESP, and Teleportation.</p>
 </div>
 </div>
-<div class="p-8 bg-dark-800 flex-1 flex flex-col">
+<div class="p-8 bg-dark-800/80 flex-1 flex flex-col border-t border-white/5">
 <div class="flex items-center gap-2 mb-6">
 <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
 <span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Active Support</span>
 </div>
 <h4 class="text-2xl font-black mb-4 uppercase italic">Evade</h4>
 <p class="text-xs text-gray-400 mb-8 font-medium leading-relaxed flex-1">Dominate in Evade with our feature-rich script — stay ahead and survive every round effortlessly with ESP and speed tools.</p>
-<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/40 px-4 py-2 rounded-lg w-fit">
+<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/60 px-4 py-2 rounded-lg w-fit border border-white/5">
 <span class="text-ruby font-bold">PLACE:</span> 9872472334
             </div>
 </div>
 </div>
 <!-- Forsaken -->
-<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5 h-full flex flex-col">
+<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5 h-full flex flex-col glass-card !bg-transparent">
 <div class="aspect-video w-full bg-[#1a0505] flex items-center justify-center relative overflow-hidden">
-<img alt="Forsaken" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGZgjL5bkldL1i3q9b7tStu2QdJ3UlX5O9QrfJQe54FP_ACQW62TvM0dK4GBOB8Iagh4jWh7r7NJ8slHgs0pHGfgJViJ1Wubs1v6w8mVEBKgpLYA8EbjdQ4fxsa0PP9WJ_u9-Sw0063IesxXjyxLlluJCqOBaQ-yKzd7PnJ0VbkyMv6HEw5KofsPKdV37nydhh45MYP_Nn-z836UOMz228_8Kxh66bGveBnqpuAMIJ9H0dcF4IaBO0xSuC8WEJGfQlH5X-9ryv0Ow"/>
-<div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-6 text-center">
+<img alt="Forsaken" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGZgjL5bkldL1i3q9b7tStu2QdJ3UlX5O9QrfJQe54FP_ACQW62TvM0dK4GBOB8Iagh4jWh7r7NJ8slHgs0pHGfgJViJ1Wubs1v6w8mVEBKgpLYA8EbjdQ4fxsa0PP9WJ_u9-Sw0063IesxXjyxLlluJCqOBaQ-yKzd7PnJ0VbkyMv6HEw5KofsPKdV37nydhh45MYP_Nn-z836UOMz228_8Kxh66bGveBnqpuAMIJ9H0dcF4IaBO0xSuC8WEJGfQlH5X-9ryv0Ow"/>
+<div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
 <span class="bg-ruby text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-lg mb-4">View Features</span>
 <p class="text-xs text-gray-300 font-medium max-w-xs">Premium script features for total dominance.</p>
 </div>
 </div>
-<div class="p-8 bg-dark-800 flex-1 flex flex-col">
+<div class="p-8 bg-dark-800/80 flex-1 flex flex-col border-t border-white/5">
 <div class="flex items-center gap-2 mb-6">
 <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
 <span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Active Support</span>
 </div>
 <h4 class="text-2xl font-black mb-4 uppercase italic">Forsaken</h4>
 <p class="text-xs text-gray-400 mb-8 font-medium leading-relaxed flex-1">Master Forsaken with our premium script features. Stay dominant and experience the game at a whole new level.</p>
-<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/40 px-4 py-2 rounded-lg w-fit">
+<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/60 px-4 py-2 rounded-lg w-fit border border-white/5">
 <span class="text-ruby font-bold">PLACE:</span> 18687417158 / 83645629621104
             </div>
 </div>
@@ -492,19 +501,20 @@
 <p class="text-gray-400">Copy the script below and paste it into your favorite executor.</p>
 </div>
 <div class="glass-card rounded-2xl overflow-hidden border border-white/10 reveal bg-black/40">
-<div class="bg-white/5 px-6 py-4 flex items-center justify-between border-b border-white/5">
+<div class="bg-white/5 px-6 py-4 flex items-center justify-between border-b border-white/10">
 <div class="flex gap-2">
 <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
 <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
 <div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
 </div>
 <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">loader.lua</span>
-<button class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors bg-white/5 px-4 py-1.5 rounded-md border border-white/5 active:scale-95" onclick="copyLoader()">
+<button class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors bg-white/10 px-4 py-1.5 rounded-md border border-white/10 active:scale-95" onclick="copyLoader()">
             Copy
           </button>
 </div>
-<div class="p-10 text-center">
-<code class="text-ruby font-mono text-lg md:text-xl break-all select-all leading-relaxed" id="script-code">loadstring(game:HttpGet("https://rubyhubb.vercel.app/loader.lua"))()</code>
+<div class="p-10 text-center relative">
+<div class="absolute inset-0 bg-ruby/5 pointer-events-none"></div>
+<code class="text-ruby font-mono text-sm md:text-lg break-all select-all leading-relaxed" id="script-code">loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()</code>
 </div>
 </div>
 </div>
@@ -516,17 +526,23 @@
 <h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Contributors</h2>
 <h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">About The Team</h3>
 </div>
-<div class="flex flex-wrap justify-center gap-16">
+<div class="flex flex-wrap justify-center gap-16 md:gap-24">
 <div class="group reveal text-center">
-<div class="w-32 h-32 rounded-full bg-dark-800 border-2 border-white/5 flex items-center justify-center text-4xl font-black mb-6 group-hover:border-ruby transition-all duration-500 shadow-xl overflow-hidden">
-<div class="bg-ruby w-full h-full flex items-center justify-center text-white">D</div>
+<div class="w-40 h-40 rounded-full border-2 border-white/10 p-1 mb-6 group-hover:border-ruby transition-all duration-700 shadow-2xl relative">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img alt="dausita" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBazotGcygGIMv7JigB55VoeowZPcEzokc83iQVDP6-CFfhFnV450vZjPvPRX_WzW5jpvuy6aZIf_nCXeaAc1_z_A4RX_JAMGxZ8ekqONWODeJxFJA92NkHSOkMXkxPyE30TvYFOJIOy0b9w14XIIvACWGS_-CUJR77jEAVq8uf-PItoqamlHImLi1JxiqZMkXQqgCF9G-hcTrmmjcD1S56eq5XLODsLriCTSpL2bQQG2ZKS6kdlFoV4kP56bui7juY0AGKYNr6AVI"/>
+</div>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-ruby text-white text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all">White-Haired</div>
 </div>
 <h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">dausita</h4>
 <p class="text-ruby text-[10px] font-black uppercase tracking-widest">Founder</p>
 </div>
 <div class="group reveal text-center">
-<div class="w-32 h-32 rounded-full bg-gradient-to-br from-[#7B2D8E] to-[#5865F2] border-2 border-white/5 flex items-center justify-center text-4xl font-black mb-6 group-hover:border-ruby transition-all duration-500 shadow-xl overflow-hidden">
-<div class="bg-dark-700 w-full h-full flex items-center justify-center text-white">B</div>
+<div class="w-40 h-40 rounded-full border-2 border-white/10 p-1 mb-6 group-hover:border-ruby transition-all duration-700 shadow-2xl relative">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img alt="beraatwr" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp6b0zb8zlSvkNO0HbSvw0KIbGp7ztgzPsUkH3b3PGR5LV5vK5Rv2JTvipeeol2FnzAZoHH5SNm2UBf52HZZ51OiMXJoOek_EUoIQI-4HiE3LU72pbt-ym9IuwOjSfvkyiXsm3KwCE9ChfRPr0OH1_IOdvN0g2GCmgqceWoZHjrsUn6EibzxnSkjExJf6FOZIvk3lF-Mn3R0bv2G2fxNvx1Z2xQjivYZ5NvsQtVNenggLInvhfUCm6wk53YnQLhXwG6jrluOaSTcU"/>
+</div>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-ruby text-white text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all">Developer</div>
 </div>
 <h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">beraatwr</h4>
 <p class="text-ruby text-[10px] font-black uppercase tracking-widest">Owner &amp; Developer</p>
@@ -535,7 +551,7 @@
 </div>
 </section>
 <!-- FOOTER -->
-<footer class="py-12 px-6 border-t border-white/5 mt-20 relative z-10">
+<footer class="py-12 px-6 border-t border-white/5 mt-20 relative z-10 bg-dark-950/80 backdrop-blur-md">
 <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
 <div class="flex items-center gap-3">
 <img alt="Ruby Hub" class="h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1RBLFJnNWenadxh8Av76JgUVdll-cm4LCuHBtvEfJBfqPkBu95HsH0sOM1CuoiglAb5B0M6Yzw6AYH_t77Bc5FbFqd_TkI9mR2eY2sqDtDIc8cq-kCNG-8nvBqUvYGiyoVoPFtpqnr-v7GrUN9Lq7uPHFAkNRn0FnYrtf_8tcwoQctrL7IIqC51xnKiO1tVlTHwL2e5ORJ9upaB9EdGXYqoN4u-r0PMiiwu05B5Cx3nyweXPpj8AnEvVJW3Qn5lDbeNBdmf5r5QU"/>
@@ -552,7 +568,7 @@
 </footer>
 <!-- Copyright Modal -->
 <div class="fixed inset-0 z-[10000] flex items-center justify-center p-4" id="copyright-modal">
-<div class="absolute inset-0 bg-black/80 backdrop-blur-md" id="modal-backdrop"></div>
+<div class="absolute inset-0 bg-black/90 backdrop-blur-xl" id="modal-backdrop"></div>
 <div class="glass-card w-full max-w-md p-10 rounded-2xl relative z-10 transform transition-transform scale-95 border border-white/10" id="modal-content">
 <h3 class="text-2xl font-black mb-6 uppercase italic flex items-center gap-3">
 <span class="w-2 h-8 bg-ruby"></span>
@@ -563,12 +579,12 @@
 </div>
 </div>
 <!-- Toast -->
-<div class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-white text-black px-10 py-3 rounded-lg font-black uppercase tracking-widest text-xs shadow-2xl transition-all duration-300 translate-y-20 opacity-0 pointer-events-none z-[10001]" id="toast">
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-white text-black px-10 py-3 rounded-lg font-black uppercase tracking-widest text-xs shadow-[0_20px_50px_rgba(227,27,84,0.3)] transition-all duration-300 translate-y-20 opacity-0 pointer-events-none z-[10001]" id="toast">
     ✓ Copied
   </div>
 <script>
     // Constants
-    const SCRIPT_URL = 'loadstring(game:HttpGet("https://rubyhubb.vercel.app/loader.lua"))()';
+    const SCRIPT_URL = 'loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()';
 
     // Particle System
     const canvas = document.getElementById('particles-canvas');
@@ -645,10 +661,12 @@
       document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.menu-content').forEach(c => c.classList.remove('active'));
       
-      const activeTab = Array.from(document.querySelectorAll('.menu-tab')).find(t => t.textContent.toLowerCase().includes(tabId));
+      const tabs = Array.from(document.querySelectorAll('.menu-tab'));
+      const activeTab = tabs.find(t => t.textContent.toLowerCase() === tabId);
       if (activeTab) activeTab.classList.add('active');
       
-      document.getElementById(`menu-${tabId}`).classList.add('active');
+      const targetContent = document.getElementById(`menu-${tabId}`);
+      if (targetContent) targetContent.classList.add('active');
     }
 
     // Modal Logic
