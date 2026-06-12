@@ -1,4 +1,3 @@
-
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -33,11 +32,27 @@
           animation: {
             'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             'float': 'float 6s ease-in-out infinite',
+            'gradient-x': 'gradient-x 15s ease infinite',
+            'mesh': 'mesh 20s ease-in-out infinite alternate',
           },
           keyframes: {
             float: {
               '0%, 100%': { transform: 'translateY(0px)' },
               '50%': { transform: 'translateY(-20px)' },
+            },
+            'gradient-x': {
+              '0%, 100%': {
+                'background-size': '200% 200%',
+                'background-position': 'left center'
+              },
+              '50%': {
+                'background-size': '200% 200%',
+                'background-position': 'right center'
+              }
+            },
+            mesh: {
+              '0%': { transform: 'scale(1) rotate(0deg)' },
+              '100%': { transform: 'scale(1.2) rotate(5deg)' }
             }
           }
         }
@@ -49,54 +64,68 @@
       background-color: #050508;
       color: #FFFFFF;
       overflow-x: hidden;
-      cursor: none;
+      cursor: auto;
+      font-family: 'Inter', sans-serif;
     }
 
-    #cursor-dot {
-      width: 8px;
-      height: 8px;
-      background-color: #E31B54;
-      border-radius: 50%;
+    /* Fluid Background Mesh */
+    .bg-mesh-container {
       position: fixed;
-      pointer-events: none;
-      z-index: 9999;
+      inset: 0;
+      z-index: -3;
+      overflow: hidden;
+      background: #050508;
     }
-    #cursor-outline {
-      width: 40px;
-      height: 40px;
-      border: 1px solid rgba(227, 27, 84, 0.5);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
+    
+    .bg-mesh-blob-1 {
+      position: absolute;
+      top: -20%;
+      left: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(227, 27, 84, 0.15) 0%, rgba(5, 5, 8, 0) 70%);
+      filter: blur(80px);
+      animation: mesh 25s infinite alternate ease-in-out;
+    }
+    
+    .bg-mesh-blob-2 {
+      position: absolute;
+      bottom: -10%;
+      right: -20%;
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(0, 234, 255, 0.05) 0%, rgba(5, 5, 8, 0) 70%);
+      filter: blur(100px);
+      animation: mesh 30s infinite alternate-reverse ease-in-out;
     }
 
-    #particles-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
+    .bg-mesh-blob-3 {
+      position: absolute;
+      top: 40%;
+      left: 30%;
+      width: 40%;
+      height: 40%;
+      background: radial-gradient(circle, rgba(227, 27, 84, 0.08) 0%, rgba(5, 5, 8, 0) 70%);
+      filter: blur(60px);
+      animation: mesh 20s infinite alternate ease-in-out;
     }
 
     .glass-card {
-      background: rgba(18, 18, 26, 0.6);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(10, 10, 15, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .glass-card:hover {
-      border-color: rgba(227, 27, 84, 0.4);
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px -20px rgba(227, 27, 84, 0.3);
+      border-color: rgba(227, 27, 84, 0.5);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px -20px rgba(227, 27, 84, 0.4), inset 0 0 20px rgba(227, 27, 84, 0.1);
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(40px);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal.active {
       opacity: 1;
@@ -110,136 +139,62 @@
     }
 
     .ruby-glow {
-      box-shadow: 0 0 20px rgba(227, 27, 84, 0.2);
+      box-shadow: 0 0 30px rgba(227, 27, 84, 0.4);
     }
 
-    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #050508; }
     ::-webkit-scrollbar-thumb { background: #1A1A24; border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: #E31B54; }
 
     .nav-scrolled {
-      background: rgba(5, 5, 8, 0.8) !important;
-      backdrop-filter: blur(16px);
+      background: rgba(5, 5, 8, 0.9) !important;
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-
-    .bg-grid-full {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      opacity: 0.2;
-      background-image: linear-gradient(#1A1A24 1px, transparent 1px), linear-gradient(90deg, #1A1A24 1px, transparent 1px);
-      background-size: 50px 50px;
-      pointer-events: none;
-    }
-
-    .bg-glow-full-1 {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 800px;
-      height: 800px;
-      background: rgba(227, 27, 84, 0.08);
-      filter: blur(150px);
-      border-radius: 50%;
-      z-index: -2;
-      pointer-events: none;
-      animation: pulse-slow 8s infinite alternate;
-    }
-
-    /* Mitamers Style Menu */
-    .menu-tab.active {
-      color: white;
-    }
-    .menu-tab.active::before {
-      content: '';
-      position: absolute;
-      left: -16px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 16px;
-      background: #00EAFF;
-      box-shadow: 0 0 8px #00EAFF;
-    }
     
-    .menu-content { display: none; }
-    .menu-content.active { display: block; }
-    
-    .custom-checkbox {
-      width: 14px;
-      height: 14px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    .custom-checkbox.checked {
-      background: #00EAFF;
-      border-color: #00EAFF;
-    }
-    .custom-checkbox.checked::after {
-      content: '✓';
-      color: black;
-      font-size: 10px;
-      font-weight: bold;
-    }
-    
-    .custom-slider {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 2px;
-      background: rgba(255,255,255,0.1);
-      outline: none;
-    }
-    .custom-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #00EAFF;
-      cursor: pointer;
-      box-shadow: 0 0 5px #00EAFF;
+    .bg-gradient-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background: linear-gradient(to bottom, rgba(5,5,8,0.3) 0%, rgba(5,5,8,0.8) 100%);
+        pointer-events: none;
     }
 
-    #copyright-modal {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
+    .hero-title {
+        font-size: clamp(4rem, 10vw, 8rem);
+        letter-spacing: 0.2em;
+        font-weight: 900;
+        text-shadow: 0 0 40px rgba(227, 27, 84, 0.3);
     }
-    #copyright-modal.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+
   </style>
 </head>
 <body class="antialiased">
-<div class="bg-grid-full"></div>
-<div class="bg-glow-full-1"></div>
-<canvas id="particles-canvas"></canvas>
-<div id="cursor-dot"></div>
-<div id="cursor-outline"></div>
+<div class="bg-mesh-container">
+<div class="bg-mesh-blob-1"></div>
+<div class="bg-mesh-blob-2"></div>
+<div class="bg-mesh-blob-3"></div>
+</div>
+<div class="bg-gradient-overlay"></div>
+<canvas id="particles-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
 <!-- NAVIGATION -->
-<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-12" id="navbar">
+<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-6 px-6 md:px-12" id="navbar">
 <div class="max-w-7xl mx-auto flex items-center justify-between">
 <a class="flex items-center gap-3 group" href="#">
-<img alt="Ruby Hub" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1RBLFJnNWenadxh8Av76JgUVdll-cm4LCuHBtvEfJBfqPkBu95HsH0sOM1CuoiglAb5B0M6Yzw6AYH_t77Bc5FbFqd_TkI9mR2eY2sqDtDIc8cq-kCNG-8nvBqUvYGiyoVoPFtpqnr-v7GrUN9Lq7uPHFAkNRn0FnYrtf_8tcwoQctrL7IIqC51xnKiO1tVlTHwL2e5ORJ9upaB9EdGXYqoN4u-r0PMiiwu05B5Cx3nyweXPpj8AnEvVJW3Qn5lDbeNBdmf5r5QU"/>
+<span class="text-xl font-bold tracking-widest gradient-text">RUBY HUB</span>
 </a>
 <div class="hidden md:flex items-center gap-8">
-<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#features">Features</a>
-<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#preview">Menu</a>
-<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#games">Games</a>
-<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#script">Script</a>
-<a class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors" href="#team">Team</a>
+<a class="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="#features">Features</a>
+<a class="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="#comparison">Why Us</a>
+<a class="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="#about">About</a>
+<a class="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="#games">Games</a>
+<a class="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="#script">Download</a>
+<a class="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="#team">Team</a>
 </div>
 <div class="flex items-center gap-4">
-<a class="hidden sm:flex items-center gap-2 bg-ruby text-white px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest ruby-glow hover:bg-ruby-hover transition-all" href="https://discord.gg/Jvq7MtJKE2" target="_blank">
-          Discord
+<a class="hidden sm:flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-all" href="https://discord.gg/Jvq7MtJKE2" target="_blank">
+          Join Discord
         </a>
 <button class="md:hidden text-white" id="mobile-menu-btn">
 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
@@ -248,456 +203,394 @@
 </div>
 </nav>
 <!-- HERO -->
-<section class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
-<div class="relative z-10 max-w-4xl text-center reveal active">
-<div class="inline-flex items-center gap-2 bg-ruby/10 border border-ruby/20 px-4 py-1.5 rounded-full text-[10px] font-black text-ruby tracking-widest uppercase mb-8">
-<span class="w-2 h-2 bg-ruby rounded-full animate-ping"></span>
-        Free &amp; Open Script Hub
-      </div>
-<h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6">
-        Ruby<span class="gradient-text">Hub</span>
+<section class="relative min-h-screen flex flex-col items-center justify-center pt-32 px-6 overflow-hidden">
+<div class="relative z-10 max-w-5xl text-center reveal active flex flex-col items-center">
+<h1 class="hero-title mb-2 uppercase text-white tracking-[0.3em]">
+        RUBY
 </h1>
-<p class="text-xl md:text-2xl text-gray-400 font-medium leading-relaxed max-w-2xl mx-auto mb-12">
-        The ultimate free script hub for Roblox. Powerful scripts for your favorite games, seamless execution, <span class="text-white">zero cost.</span>
+<p class="text-xl md:text-2xl text-gray-300 font-light tracking-wide mb-12">
+        A fast, stable, and persistent Lua Hub for Roblox. <span class="font-medium text-white opacity-80">With Ruby Hub</span>
 </p>
-<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-<a class="group relative px-10 py-4 bg-ruby text-white rounded-xl font-black uppercase tracking-widest text-sm overflow-hidden transition-all hover:scale-105 active:scale-95 ruby-glow flex items-center justify-center" href="https://discord.gg/Jvq7MtJKE2" target="_blank">Try It Now</a>
-<button class="group relative px-10 py-4 bg-ruby text-white rounded-xl font-black uppercase tracking-widest text-sm overflow-hidden transition-all hover:scale-105 active:scale-95 ruby-glow" onclick="copyLoader()">
+<div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8 w-full max-w-2xl">
+<button class="w-full sm:w-auto px-12 py-4 bg-black text-white rounded-full font-medium text-lg border border-white/10 hover:bg-white/5 transition-all active:scale-95 shadow-2xl" onclick="copyLoader()">
           Copy Script
         </button>
-<a class="px-10 py-4 bg-dark-800 text-white rounded-xl font-black uppercase tracking-widest text-sm border border-white/5 hover:bg-dark-700 transition-all hover:scale-105 active:scale-95" href="https://discord.gg/Jvq7MtJKE2" target="_blank">
-          Join Discord
+<a class="w-full sm:w-auto px-12 py-4 bg-white/10 text-white rounded-full font-medium text-lg border border-white/5 hover:bg-white/20 transition-all active:scale-95 backdrop-blur-sm" href="https://discord.gg/Jvq7MtJKE2" target="_blank">
+          Get Free Key
         </a>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-8 border-t border-white/5 pt-12">
-<div class="flex flex-col">
-<span class="text-4xl font-black text-ruby mb-1">3+</span>
-<span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Games Supported</span>
-</div>
-<div class="flex flex-col border-x border-white/5">
-<span class="text-4xl font-black text-ruby mb-1">100%</span>
-<span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Free Forever</span>
-</div>
-<div class="flex flex-col">
-<span class="text-4xl font-black text-ruby mb-1">24/7</span>
-<span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Community Support</span>
-</div>
-</div>
+<p class="text-xs text-gray-500 font-medium bg-black/40 px-4 py-2 rounded-full border border-white/5 backdrop-blur-sm">Free key is available. By using Ruby Hub, you agree to our Terms of Service.</p>
 </div>
 </section>
 <!-- FEATURES -->
-<section class="py-24 px-6 relative" id="features">
+<section class="py-32 px-6 relative" id="features">
 <div class="max-w-7xl mx-auto">
-<div class="text-center mb-16 reveal">
-<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Core Advantage</h2>
-<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">Why Choose Ruby Hub?</h3>
-<p class="text-gray-400 max-w-xl mx-auto">Engineered for performance and stability across multiple environments.</p>
+<div class="text-center mb-20 reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Why Ruby Hub?</h3>
+<p class="text-gray-400 max-w-2xl mx-auto text-lg">Engineered for performance and stability across multiple environments.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="glass-card p-10 rounded-2xl reveal border border-white/5 bg-dark-900/40">
-<div class="w-12 h-12 bg-ruby/10 rounded-lg flex items-center justify-center mb-8 border border-ruby/20">
-<svg class="w-6 h-6 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="glass-card p-12 rounded-3xl reveal group">
+<div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-ruby/50 transition-colors">
+<svg class="w-8 h-8 text-white group-hover:text-ruby transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
 </div>
-<h4 class="text-lg font-black uppercase tracking-widest mb-4">100% Free</h4>
-<p class="text-sm text-gray-400 leading-relaxed font-medium">Enjoy premium-level scripting at no cost — Ruby Hub is free for all, forever.</p>
+<h4 class="text-2xl font-medium tracking-wide mb-4">100% Free</h4>
+<p class="text-gray-400 leading-relaxed">Enjoy premium-level scripting at no cost — Ruby Hub is free for all, forever.</p>
 </div>
-<div class="glass-card p-10 rounded-2xl reveal border border-white/5 bg-dark-900/40">
-<div class="w-12 h-12 bg-ruby/10 rounded-lg flex items-center justify-center mb-8 border border-ruby/20">
-<svg class="w-6 h-6 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="glass-card p-12 rounded-3xl reveal group">
+<div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-ruby/50 transition-colors">
+<svg class="w-8 h-8 text-white group-hover:text-ruby transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
 </div>
-<h4 class="text-lg font-black uppercase tracking-widest mb-4">Always Improving</h4>
-<p class="text-sm text-gray-400 leading-relaxed font-medium">Ruby Hub is here for the long run and just keeps getting better with every update.</p>
+<h4 class="text-2xl font-medium tracking-wide mb-4">Always Improving</h4>
+<p class="text-gray-400 leading-relaxed">Ruby Hub is here for the long run and just keeps getting better with every update.</p>
 </div>
-<div class="glass-card p-10 rounded-2xl reveal border border-white/5 bg-dark-900/40">
-<div class="w-12 h-12 bg-ruby/10 rounded-lg flex items-center justify-center mb-8 border border-ruby/20">
-<svg class="w-6 h-6 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 12h16m-8-8v16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="glass-card p-12 rounded-3xl reveal group">
+<div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-ruby/50 transition-colors">
+<svg class="w-8 h-8 text-white group-hover:text-ruby transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 12h16m-8-8v16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
 </div>
-<h4 class="text-lg font-black uppercase tracking-widest mb-4">Fast Updates</h4>
-<p class="text-sm text-gray-400 leading-relaxed font-medium">Ruby Hub is always up to date, so you never have to wait for script patches.</p>
+<h4 class="text-2xl font-medium tracking-wide mb-4">Fast Updates</h4>
+<p class="text-gray-400 leading-relaxed">Ruby Hub is always up to date, so you never have to wait for script patches.</p>
 </div>
 </div>
 </div>
 </section>
-<!-- INTERACTIVE MENU PREVIEW -->
-<section class="py-24 px-6 relative" id="preview">
+<!-- ABOUT -->
+<section class="py-32 px-6 relative bg-white/5" id="about">
+<div class="max-w-5xl mx-auto text-center reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-8 tracking-wide">About Us</h3>
+<p class="text-gray-300 text-lg md:text-xl leading-relaxed mb-12">
+    Ruby Hub started with a simple mission: to provide the Roblox community with a high-quality, reliable, and completely free script hub. We believe that everyone should have access to the best tools without hidden paywalls or intrusive key systems. Our dedicated team works tirelessly to ensure that Ruby Hub remains at the forefront of the exploiting scene, offering unparalleled performance and consistent updates.
+  </p>
+<div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-ruby to-transparent rounded-full">
+<div class="px-8 py-4 bg-black/80 rounded-full backdrop-blur-sm">
+<p class="text-sm text-gray-400 tracking-widest uppercase">Driven by Passion. Powered by Community.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- COMPARISON SECTION -->
+<section class="py-32 px-6 relative" id="comparison">
 <div class="max-w-6xl mx-auto">
-<div class="text-center mb-16 reveal">
-<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Interface</h2>
-<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">Interactive Cheat Menu</h3>
-<p class="text-gray-400 max-w-xl mx-auto">Experience our high-fidelity custom user interface built for performance and speed.</p>
+<div class="text-center mb-20 reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Ruby vs Others</h3>
 </div>
-<div class="bg-[#0b0c0f] w-full max-w-4xl mx-auto rounded-sm shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10 flex overflow-hidden aspect-[4/3] md:aspect-[16/9] reveal">
-<!-- Sidebar -->
-<div class="w-40 border-r border-white/5 flex flex-col p-6 font-medium text-xs text-gray-500">
-<div class="mb-10 opacity-30 uppercase tracking-widest text-[9px] font-bold">Categories</div>
-<div class="space-y-6">
-<button class="menu-tab active relative flex items-center transition-colors uppercase tracking-widest font-bold" onclick="switchTab('combat')">Combat</button>
-<button class="menu-tab relative flex items-center hover:text-white transition-colors uppercase tracking-widest font-bold" onclick="switchTab('visuals')">Visuals</button>
-<button class="menu-tab relative flex items-center hover:text-white transition-colors uppercase tracking-widest font-bold" onclick="switchTab('misc')">Misc</button>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="glass-card p-12 rounded-3xl reveal border border-ruby/30 bg-ruby/5 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-ruby/10 blur-3xl rounded-full pointer-events-none"></div>
+<h4 class="text-3xl font-medium mb-10 tracking-wide text-white flex items-center gap-4">
+      Ruby Hub <span class="text-xs bg-ruby/20 text-ruby px-3 py-1.5 rounded-full font-bold uppercase tracking-widest border border-ruby/30">Winner</span>
+</h4>
+<ul class="space-y-6">
+<li class="flex items-center gap-5"><div class="bg-green-500/10 p-2 rounded-full border border-green-500/20"><svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-200">Free</span></li>
+<li class="flex items-center gap-5"><div class="bg-green-500/10 p-2 rounded-full border border-green-500/20"><svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-200">Keyless</span></li>
+<li class="flex items-center gap-5"><div class="bg-green-500/10 p-2 rounded-full border border-green-500/20"><svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-200">Supports 99% of Hubs</span></li>
+<li class="flex items-center gap-5"><div class="bg-green-500/10 p-2 rounded-full border border-green-500/20"><svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-200">Instant Updates</span></li>
+</ul>
 </div>
-</div>
-<!-- Content Area -->
-<div class="flex-1 p-8 bg-[#0d0e12]">
-<div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
-<div class="flex gap-8 text-[11px] font-bold uppercase tracking-wider text-white">
-<span class="border-b border-[#00EAFF] pb-4 cursor-pointer">Player Features</span>
-<span class="text-gray-500 hover:text-white transition-colors cursor-pointer pb-4">Aimbot</span>
-</div>
-<div class="text-[11px] font-black text-ruby uppercase tracking-widest italic">Ruby Software</div>
-</div>
-<!-- Combat Tab -->
-<div class="menu-content active h-full" id="menu-combat">
-<div class="grid grid-cols-2 gap-8">
-<!-- Left Column -->
-<div class="border border-white/5 p-5 bg-[#0a0a0e] rounded-sm">
-<h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">Movement Features</h5>
-<div class="space-y-4">
-<div class="flex items-center justify-between">
-<span class="text-[11px] text-gray-300 font-medium">WalkSpeed Boost</span>
-<div class="custom-checkbox checked" onclick="this.classList.toggle('checked')"></div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-[11px] text-gray-300 font-medium">JumpPower Boost</span>
-<div class="custom-checkbox" onclick="this.classList.toggle('checked')"></div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-[11px] text-gray-300 font-medium">Fly (Press F)</span>
-<div class="custom-checkbox" onclick="this.classList.toggle('checked')"></div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-[11px] text-ruby font-bold">Infinite Jump</span>
-<div class="custom-checkbox checked" onclick="this.classList.toggle('checked')"></div>
-</div>
-</div>
-</div>
-<!-- Right Column -->
-<div class="border border-white/5 p-5 bg-[#0a0a0e] rounded-sm">
-<h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">Settings</h5>
-<div class="space-y-8">
-<div>
-<div class="flex justify-between text-[10px] text-gray-400 uppercase font-bold mb-3">
-<span>Speed Multiplier</span>
-<span class="text-ruby">2.50</span>
-</div>
-<input class="custom-slider" max="10" min="1" step="0.1" type="range" value="2.5"/>
-</div>
-<div>
-<div class="flex justify-between text-[10px] text-gray-400 uppercase font-bold mb-3">
-<span>Jump Multiplier</span>
-<span class="text-ruby">1.00</span>
-</div>
-<input class="custom-slider" max="5" min="1" step="0.1" type="range" value="1"/>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Visuals Tab -->
-<div class="menu-content h-full" id="menu-visuals">
-<div class="grid grid-cols-2 gap-8">
-<div class="border border-white/5 p-5 bg-[#0a0a0e] rounded-sm">
-<h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">World ESP</h5>
-<div class="space-y-4">
-<div class="flex items-center justify-between">
-<span class="text-[11px] text-gray-300 font-medium">Box ESP</span>
-<div class="custom-checkbox checked" onclick="this.classList.toggle('checked')"></div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-[11px] text-gray-300 font-medium">Name ESP</span>
-<div class="custom-checkbox checked" onclick="this.classList.toggle('checked')"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Misc Tab -->
-<div class="menu-content" id="menu-misc">
-<div class="p-5 text-gray-500 text-xs font-medium italic">Additional settings coming soon...</div>
-</div>
+<div class="glass-card p-12 rounded-3xl reveal relative overflow-hidden">
+<h4 class="text-3xl font-medium mb-10 tracking-wide text-gray-500">Others</h4>
+<ul class="space-y-6 opacity-60">
+<li class="flex items-center gap-5"><div class="bg-red-500/10 p-2 rounded-full border border-red-500/20"><svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-400">Paid</span></li>
+<li class="flex items-center gap-5"><div class="bg-red-500/10 p-2 rounded-full border border-red-500/20"><svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-400">Key System</span></li>
+<li class="flex items-center gap-5"><div class="bg-red-500/10 p-2 rounded-full border border-red-500/20"><svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-400">Supports 1% of Hubs</span></li>
+<li class="flex items-center gap-5"><div class="bg-red-500/10 p-2 rounded-full border border-red-500/20"><svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-400">Slow Updates</span></li>
+</ul>
 </div>
 </div>
 </div>
 </section>
 <!-- GAMES -->
-<section class="py-24 px-6 bg-dark-900/30" id="games">
+<section class="py-32 px-6" id="games">
 <div class="max-w-7xl mx-auto">
-<div class="text-center mb-16 reveal">
-<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Official Library</h2>
-<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">Games We Support</h3>
+<div class="text-center mb-20 reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Supported Games</h3>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 <!-- Break In -->
-<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5 h-full flex flex-col glass-card !bg-transparent">
-<div class="aspect-video w-full bg-[#1a0a2e] flex items-center justify-center relative overflow-hidden">
-<img alt="Break In" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGaBTUKj2xrHgB2SZKjuxM_x-O3FGiWJOU5K0OrMjC6C0qnPfFD0ybfYXxD1lT18zvExS94vHwCgq4c-ShF93Xz70twrHtRfK5Nch11-hC9ox0w2E9YmU6Deo5i_nlabUz-cTbyfgKKOb1mMnuvEBucvOUERTGjqXImfLv0bggRBh1XQFv5zrseAQnnyMtew3YwBqJ7jFuV9jvswz9y9SuE08skQ1NYddpqFUH_JpdHfZqIG7k7ZhoFBQiUdkNqKpkpGvP6V5ohJI"/>
-<div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
-<span class="bg-ruby text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-lg mb-4">View Features</span>
-<p class="text-xs text-gray-300 font-medium max-w-xs">Includes Auto-Cook, Silent Aim, Godmode, and more.</p>
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="Break In" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGaBTUKj2xrHgB2SZKjuxM_x-O3FGiWJOU5K0OrMjC6C0qnPfFD0ybfYXxD1lT18zvExS94vHwCgq4c-ShF93Xz70twrHtRfK5Nch11-hC9ox0w2E9YmU6Deo5i_nlabUz-cTbyfgKKOb1mMnuvEBucvOUERTGjqXImfLv0bggRBh1XQFv5zrseAQnnyMtew3YwBqJ7jFuV9jvswz9y9SuE08skQ1NYddpqFUH_JpdHfZqIG7k7ZhoFBQiUdkNqKpkpGvP6V5ohJI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Break In 1</h4>
+<p class="text-sm text-gray-300 font-medium">Includes Auto-Cook, Silent Aim, Godmode...</p>
 </div>
-</div>
-<div class="p-8 bg-dark-800/80 flex-1 flex flex-col border-t border-white/5">
-<div class="flex items-center gap-2 mb-6">
-<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-<span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Active Support</span>
-</div>
-<h4 class="text-2xl font-black mb-4 uppercase italic">Break In 1</h4>
-<p class="text-xs text-gray-400 mb-8 font-medium leading-relaxed flex-1">Full script support for Break In — survive the night with powerful features and automated tools at your disposal.</p>
-<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/60 px-4 py-2 rounded-lg w-fit border border-white/5">
-<span class="text-ruby font-bold">PLACE:</span> 4620170611 / 3851622790
-            </div>
 </div>
 </div>
 <!-- Evade -->
-<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5 h-full flex flex-col glass-card !bg-transparent">
-<div class="aspect-video w-full bg-[#0a1628] flex items-center justify-center relative overflow-hidden">
-<img alt="Evade" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKgV4MOTFq1QStmP-OBapyfRYyH7Nw6Vn24Vpg4dX4UGBhHzlSfdReq2imotsllouO3Xq9fD_r1p0QEncLeyD-uYxq2eQ30BiAePSbPV_Y6XbQ6pk0XwumihpwZIj2V82HXb8HqjZpupgWhWo6KOZQw6QxiB5jCRgE4UvIZvZYZEHVfU9rcxN79ghaFBi5bh1ZQWB0vpJ_Lbx9aMp1kokuYRBspMlh1OYeoqA3EVj6ibS3RzL3s-CmnwGPrQsQARzei1LwjP39FHU"/>
-<div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
-<span class="bg-ruby text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-lg mb-4">View Features</span>
-<p class="text-xs text-gray-300 font-medium max-w-xs">Includes Speed Exploit, Auto-Revive, ESP, and Teleportation.</p>
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="Evade" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKgV4MOTFq1QStmP-OBapyfRYyH7Nw6Vn24Vpg4dX4UGBhHzlSfdReq2imotsllouO3Xq9fD_r1p0QEncLeyD-uYxq2eQ30BiAePSbPV_Y6XbQ6pk0XwumihpwZIj2V82HXb8HqjZpupgWhWo6KOZQw6QxiB5jCRgE4UvIZvZYZEHVfU9rcxN79ghaFBi5bh1ZQWB0vpJ_Lbx9aMp1kokuYRBspMlh1OYeoqA3EVj6ibS3RzL3s-CmnwGPrQsQARzei1LwjP39FHU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Evade</h4>
+<p class="text-sm text-gray-300 font-medium">Includes Speed Exploit, Auto-Revive, ESP...</p>
 </div>
-</div>
-<div class="p-8 bg-dark-800/80 flex-1 flex flex-col border-t border-white/5">
-<div class="flex items-center gap-2 mb-6">
-<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-<span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Active Support</span>
-</div>
-<h4 class="text-2xl font-black mb-4 uppercase italic">Evade</h4>
-<p class="text-xs text-gray-400 mb-8 font-medium leading-relaxed flex-1">Dominate in Evade with our feature-rich script — stay ahead and survive every round effortlessly with ESP and speed tools.</p>
-<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/60 px-4 py-2 rounded-lg w-fit border border-white/5">
-<span class="text-ruby font-bold">PLACE:</span> 9872472334
-            </div>
 </div>
 </div>
 <!-- Forsaken -->
-<div class="group relative overflow-hidden rounded-3xl reveal border border-white/5 h-full flex flex-col glass-card !bg-transparent">
-<div class="aspect-video w-full bg-[#1a0505] flex items-center justify-center relative overflow-hidden">
-<img alt="Forsaken" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGZgjL5bkldL1i3q9b7tStu2QdJ3UlX5O9QrfJQe54FP_ACQW62TvM0dK4GBOB8Iagh4jWh7r7NJ8slHgs0pHGfgJViJ1Wubs1v6w8mVEBKgpLYA8EbjdQ4fxsa0PP9WJ_u9-Sw0063IesxXjyxLlluJCqOBaQ-yKzd7PnJ0VbkyMv6HEw5KofsPKdV37nydhh45MYP_Nn-z836UOMz228_8Kxh66bGveBnqpuAMIJ9H0dcF4IaBO0xSuC8WEJGfQlH5X-9ryv0Ow"/>
-<div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
-<span class="bg-ruby text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-lg mb-4">View Features</span>
-<p class="text-xs text-gray-300 font-medium max-w-xs">Premium script features for total dominance.</p>
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="Forsaken" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGZgjL5bkldL1i3q9b7tStu2QdJ3UlX5O9QrfJQe54FP_ACQW62TvM0dK4GBOB8Iagh4jWh7r7NJ8slHgs0pHGfgJViJ1Wubs1v6w8mVEBKgpLYA8EbjdQ4fxsa0PP9WJ_u9-Sw0063IesxXjyxLlluJCqOBaQ-yKzd7PnJ0VbkyMv6HEw5KofsPKdV37nydhh45MYP_Nn-z836UOMz228_8Kxh66bGveBnqpuAMIJ9H0dcF4IaBO0xSuC8WEJGfQlH5X-9ryv0Ow"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Forsaken</h4>
+<p class="text-sm text-gray-300 font-medium">Premium script features for total dominance.</p>
 </div>
 </div>
-<div class="p-8 bg-dark-800/80 flex-1 flex flex-col border-t border-white/5">
-<div class="flex items-center gap-2 mb-6">
-<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-<span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Active Support</span>
 </div>
-<h4 class="text-2xl font-black mb-4 uppercase italic">Forsaken</h4>
-<p class="text-xs text-gray-400 mb-8 font-medium leading-relaxed flex-1">Master Forsaken with our premium script features. Stay dominant and experience the game at a whole new level.</p>
-<div class="flex items-center gap-2 font-mono text-[9px] text-gray-600 bg-black/60 px-4 py-2 rounded-lg w-fit border border-white/5">
-<span class="text-ruby font-bold">PLACE:</span> 18687417158 / 83645629621104
-            </div>
+<!-- Lemon Sells -->
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="Lemon Sells" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVTr8tbFHpeIyjmC5qB_z3OdI6C_MC1yRTm8D2umYc3J28UKKbNdUgECLpg1jeSVf_vlyFgTPrGktfISZX9pf5xLwOM9CEeVnqwGtmWKMybaEXbzqEsPP2T2WgbgFJODus8Emn70w1wzni_q9dnW4a-pBSxuyyamcxcCJV0arBwrwGhbmYekzrXe26lbHProFDqj2O2-yszWuaDo5CFiwjVqxpnG65GXQrrFdEgTKM3jgk9mk5v0v3R0qf4Fkoivo10NK4Eb2qWQ0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Lemon Sells</h4>
+<p class="text-sm text-gray-300 font-medium">Boost your earnings and automate your stands.</p>
+</div>
+</div>
+</div>
+<!-- +1 Speed Escape -->
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="+1 Speed Escape" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfixPai1SjfZp7meh7D5zU9isayXW1ixuQrpTkcEHeiDCA2BzTNWI7IHWdnc-sFIalMLwUsIYubunYNqNvGUDoEE4DvKQQGoiMWhg0DSHgQLCRgY4lbEHUaHh9bw5sOMP5z4aOwg2EmAHquNg-Mb2jYYjs026hPfxeaxLKUyIQakbAyu1aZ5icKYrBxzmFLd7jvoEF_b6T1uJlG4zI-hOJdSTxzaRUy-dBx71g2pmwq7Uo8h5gudkGHEwBPynHjcOrwRXp0w5yEbc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">+1 Speed Escape</h4>
+<p class="text-sm text-gray-300 font-medium">Complete courses instantly with max speed tools.</p>
+</div>
+</div>
+</div>
+<!-- Draw A Sleigh -->
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="Draw A Sleigh" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHu17-zHtfJhKI-pf0_gAGig5APnRQNjDswgSASYvE1fkD02Ej3x6f8ZxeMKt0SL6uTHK00eKM2fiJHmnhM7DXRHkRlUJIZ9afxYeKamhlbjeVMhpSIvCyYpLrqY3C5bymk7WhU8fv8mExM4b1BriwpUjJiRMuLAoPV8tZMWAtfgbJh_3KKI6CbWH4sIyLy-DbIJG7SoBmjYzkfWpPHsyjUlBjmpi4lPgGLsFN2gkKIvLB4LPsaNiITJVOPa_iGNveBF0gVYV9Y5M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Draw A Sleigh</h4>
+<p class="text-sm text-gray-300 font-medium">Enhance your rides and dominate tracks.</p>
+</div>
+</div>
+</div>
+<!-- Blox Fruits -->
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="Blox Fruits" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwKRZeTod64jCMGMZOR-8hVvclcGYbhDIwLCeXp9JeAcvAAI88ia0xXlF0ZuL5MGEkMXIWzbNFY0b32Ihx1MtzlXk1gC9yNWwm49WjH-4OO9sBF3o8esz_K8sdK92qqRP6aga5lDQKxWuDACzkkxlZ_M9aGTx8dictwLbKLV4A_x9zbIeVUt5864KQ-tPOUefGsfqdt4XyVR_IviT2wuzAVgjg7nmgBpQhLjJFUjoPeg-RpUoIhaaXRNhZnKB-eFPu1wmhGbTQukc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Blox Fruits</h4>
+<p class="text-sm text-gray-300 font-medium">Auto-farm, auto-quest, and level up faster.</p>
+</div>
+</div>
+</div>
+<!-- Murder Mystery 2 -->
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="Murder Mystery 2" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR6CJFI-mHVxNMU7A2L3V35A3PaV_cFrlBJZ9hDOmYBdGGyf2ZSveo9sVHRgy-Zdp_MWPrzVk2PhFsCKEHlJyCZiwdNzUiPKa6gkrXgrEBEmd8EP6XYMp90ltS6JDF5jfiOBymswj5Plqv-NzmnHbymbQYL-A0G2etsPuaqoGK3dE_eluXV3ut5Z77Nt2HhTdEf8MxSroxHHn0C8LZC-FyTm7OQBDS44pZFhWbJGMuuD_3Rf99inYEBXBsvvO47yoL5XZeoHb4m64"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Murder Mystery 2</h4>
+<p class="text-sm text-gray-300 font-medium">ESP, silent aim, and coin farming.</p>
+</div>
+</div>
+</div>
+<!-- Break In 2 -->
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="Break In 2" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG4IICkrqkI51QylZ29JvikRcfisgpR1w7WUg8V3MJGp5N-9cPpd_0zVAnGrGYIgGPwa9z0FkIp2AEmGYTmZ0nDrPyuJrp7l6RP46zEW_0RVWf_c26xIDk7k4z9N6UsF91zoiNEfYs7V7LToBPL5wyuYkynxn_Ivvm9oP9kiu9xd7-u-bC2YbR3xAWX-gx0E2pnkE7T-ReWooQyWFXXeiFS3EnuuLZp_iiSSlNCJHHowS6nYaFA3-Thvq-WAgIFO83vW_VgasrDMQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Break In (2)</h4>
+<p class="text-sm text-gray-300 font-medium">Complete the sequel with godmode and items.</p>
+</div>
+</div>
+</div>
+<!-- Dead Rails -->
+<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
+<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
+<img alt="Dead Rails" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc8WVu0l9lwjM7sUjKVqwpen1E4iicC8do6wbFmzTUY0FUIecIgFjhi8Kh3V6AggT1SzDlyRUhh885xiAQbKL7E-fxYwbXZuorEoWgPhT6FeozLZ3RxNTuAmBbT3YXoIUIGobmu_8VscnQCucKJla5tWPw6WRwU2KSCdF_BMWjMT9tuKZj4Fnsk3ZwhAtU_O2OCYseR8LELVlB_51X5Ew1b6APQyjdqisWoTt3oduLZToyJNo3n2hiFuFOlU3uzpzUSi0TRrSWsqU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Dead Rails</h4>
+<p class="text-sm text-gray-300 font-medium">Survive the tracks with infinite ammo.</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 </section>
 <!-- SCRIPT -->
-<section class="py-24 px-6 relative overflow-hidden" id="script">
-<div class="max-w-4xl mx-auto">
+<section class="py-32 px-6 relative overflow-hidden" id="script">
+<div class="max-w-5xl mx-auto">
 <div class="text-center mb-16 reveal">
-<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Installation</h2>
-<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">Load Ruby Hub</h3>
-<p class="text-gray-400">Copy the script below and paste it into your favorite executor.</p>
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Copy Script</h3>
 </div>
-<div class="glass-card rounded-2xl overflow-hidden border border-white/10 reveal bg-black/40">
-<div class="bg-white/5 px-6 py-4 flex items-center justify-between border-b border-white/10">
+<div class="glass-card rounded-3xl overflow-hidden reveal hover:scale-[1.01] transition-transform duration-700 shadow-2xl">
+<div class="bg-black/30 px-8 py-5 flex items-center justify-between border-b border-white/5">
 <div class="flex gap-2">
 <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
 <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
 <div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
 </div>
-<span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">loader.lua</span>
-<button class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors bg-white/10 px-4 py-1.5 rounded-md border border-white/10 active:scale-95" onclick="copyLoader()">
+<span class="text-sm font-medium text-gray-400 tracking-wider">loader.lua</span>
+<button class="text-sm font-medium text-white bg-white/10 hover:bg-white/20 transition-colors px-6 py-2.5 rounded-full border border-white/10 active:scale-95" onclick="copyLoader()">
             Copy
           </button>
 </div>
-<div class="p-10 text-center relative">
-<div class="absolute inset-0 bg-ruby/5 pointer-events-none"></div>
-<code class="text-ruby font-mono text-sm md:text-lg break-all select-all leading-relaxed" id="script-code">loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()</code>
+<div class="p-12 text-center relative bg-black/20">
+<code class="text-gray-300 font-mono text-sm md:text-base break-all select-all leading-relaxed" id="script-code">loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()</code>
 </div>
 </div>
 </div>
 </section>
 <!-- TEAM -->
-<section class="py-24 px-6" id="team">
+<section class="py-32 px-6" id="team">
 <div class="max-w-7xl mx-auto">
-<div class="text-center mb-16 reveal">
-<h2 class="text-[10px] font-black text-ruby tracking-[0.4em] uppercase mb-4">Contributors</h2>
-<h3 class="text-4xl md:text-5xl font-black mb-6 uppercase">About The Team</h3>
+<div class="text-center mb-20 reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Team</h3>
 </div>
-<div class="flex flex-wrap justify-center gap-16 md:gap-24">
-<div class="group reveal text-center">
-<div class="w-40 h-40 rounded-full border-2 border-white/10 p-1 mb-6 group-hover:border-ruby transition-all duration-700 shadow-2xl relative">
-<div class="w-full h-full rounded-full overflow-hidden">
-<img alt="dausita" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBazotGcygGIMv7JigB55VoeowZPcEzokc83iQVDP6-CFfhFnV450vZjPvPRX_WzW5jpvuy6aZIf_nCXeaAc1_z_A4RX_JAMGxZ8ekqONWODeJxFJA92NkHSOkMXkxPyE30TvYFOJIOy0b9w14XIIvACWGS_-CUJR77jEAVq8uf-PItoqamlHImLi1JxiqZMkXQqgCF9G-hcTrmmjcD1S56eq5XLODsLriCTSpL2bQQG2ZKS6kdlFoV4kP56bui7juY0AGKYNr6AVI"/>
+<div class="flex flex-wrap justify-center gap-20">
+<div class="group reveal text-center flex flex-col items-center">
+<div class="w-48 h-48 rounded-full mb-6 overflow-hidden border border-white/10 group-hover:border-ruby/50 transition-colors shadow-2xl relative">
+<img alt="dausita" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBazotGcygGIMv7JigB55VoeowZPcEzokc83iQVDP6-CFfhFnV450vZjPvPRX_WzW5jpvuy6aZIf_nCXeaAc1_z_A4RX_JAMGxZ8ekqONWODeJxFJA92NkHSOkMXkxPyE30TvYFOJIOy0b9w14XIIvACWGS_-CUJR77jEAVq8uf-PItoqamlHImLi1JxiqZMkXQqgCF9G-hcTrmmjcD1S56eq5XLODsLriCTSpL2bQQG2ZKS6kdlFoV4kP56bui7juY0AGKYNr6AVI"/>
 </div>
-<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-ruby text-white text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all">White-Haired</div>
+<h4 class="text-2xl font-medium mb-2 tracking-wide">dausita</h4>
+<p class="text-gray-400 text-sm tracking-wider uppercase">Founder</p>
 </div>
-<h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">dausita</h4>
-<p class="text-ruby text-[10px] font-black uppercase tracking-widest">Founder</p>
+<div class="group reveal text-center flex flex-col items-center">
+<div class="w-48 h-48 rounded-full mb-6 overflow-hidden border border-white/10 group-hover:border-ruby/50 transition-colors shadow-2xl relative">
+<img alt="beraatwr" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp6b0zb8zlSvkNO0HbSvw0KIbGp7ztgzPsUkH3b3PGR5LV5vK5Rv2JTvipeeol2FnzAZoHH5SNm2UBf52HZZ51OiMXJoOek_EUoIQI-4HiE3LU72pbt-ym9IuwOjSfvkyiXsm3KwCE9ChfRPr0OH1_IOdvN0g2GCmgqceWoZHjrsUn6EibzxnSkjExJf6FOZIvk3lF-Mn3R0bv2G2fxNvx1Z2xQjivYZ5NvsQtVNenggLInvhfUCm6wk53YnQLhXwG6jrluOaSTcU"/>
 </div>
-<div class="group reveal text-center">
-<div class="w-40 h-40 rounded-full border-2 border-white/10 p-1 mb-6 group-hover:border-ruby transition-all duration-700 shadow-2xl relative">
-<div class="w-full h-full rounded-full overflow-hidden">
-<img alt="beraatwr" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp6b0zb8zlSvkNO0HbSvw0KIbGp7ztgzPsUkH3b3PGR5LV5vK5Rv2JTvipeeol2FnzAZoHH5SNm2UBf52HZZ51OiMXJoOek_EUoIQI-4HiE3LU72pbt-ym9IuwOjSfvkyiXsm3KwCE9ChfRPr0OH1_IOdvN0g2GCmgqceWoZHjrsUn6EibzxnSkjExJf6FOZIvk3lF-Mn3R0bv2G2fxNvx1Z2xQjivYZ5NvsQtVNenggLInvhfUCm6wk53YnQLhXwG6jrluOaSTcU"/>
-</div>
-<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-ruby text-white text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all">Developer</div>
-</div>
-<h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">beraatwr</h4>
-<p class="text-ruby text-[10px] font-black uppercase tracking-widest">Owner &amp; Developer</p>
+<h4 class="text-2xl font-medium mb-2 tracking-wide">beraatwr</h4>
+<p class="text-gray-400 text-sm tracking-wider uppercase">Owner &amp; Developer</p>
 </div>
 </div>
 </div>
 </section>
 <!-- FOOTER -->
-<footer class="py-12 px-6 border-t border-white/5 mt-20 relative z-10 bg-dark-950/80 backdrop-blur-md">
-<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+<footer class="py-12 px-6 border-t border-white/5 mt-20 relative z-10 bg-black/40 backdrop-blur-xl">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-sm text-gray-500">
 <div class="flex items-center gap-3">
-<img alt="Ruby Hub" class="h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1RBLFJnNWenadxh8Av76JgUVdll-cm4LCuHBtvEfJBfqPkBu95HsH0sOM1CuoiglAb5B0M6Yzw6AYH_t77Bc5FbFqd_TkI9mR2eY2sqDtDIc8cq-kCNG-8nvBqUvYGiyoVoPFtpqnr-v7GrUN9Lq7uPHFAkNRn0FnYrtf_8tcwoQctrL7IIqC51xnKiO1tVlTHwL2e5ORJ9upaB9EdGXYqoN4u-r0PMiiwu05B5Cx3nyweXPpj8AnEvVJW3Qn5lDbeNBdmf5r5QU"/>
+<span class="text-lg font-bold tracking-widest text-gray-500">RUBY HUB</span>
 </div>
-<button class="text-gray-500 text-[10px] font-black uppercase tracking-widest hover:text-ruby transition-colors" id="copyright-btn">
-        © 2026 Ruby Hub. All rights reserved.
-      </button>
-<div class="flex gap-8 text-[10px] font-black uppercase tracking-widest text-gray-500">
-<a class="hover:text-white transition-colors" href="#features">Features</a>
-<a class="hover:text-white transition-colors" href="#games">Games</a>
-<a class="hover:text-white transition-colors" href="https://discord.gg/Jvq7MtJKE2" target="_blank">Discord</a>
+<div class="flex items-center gap-6">
+<a class="hover:text-white transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-white transition-colors" href="#">Privacy Policy</a>
+</div>
+<div>
+    © 2024 Ruby Hub. All rights reserved.
 </div>
 </div>
 </footer>
-<!-- Copyright Modal -->
-<div class="fixed inset-0 z-[10000] flex items-center justify-center p-4" id="copyright-modal">
-<div class="absolute inset-0 bg-black/90 backdrop-blur-xl" id="modal-backdrop"></div>
-<div class="glass-card w-full max-w-md p-10 rounded-2xl relative z-10 transform transition-transform scale-95 border border-white/10" id="modal-content">
-<h3 class="text-2xl font-black mb-6 uppercase italic flex items-center gap-3">
-<span class="w-2 h-8 bg-ruby"></span>
-        Copyright Notice
-      </h3>
-<p class="text-gray-400 mb-8 leading-relaxed text-sm font-medium">Ruby Hub is a free, open project. We reserve the rights to our unique codebase and UI design. Please do not re-distribute without credit.</p>
-<button class="w-full py-4 bg-ruby hover:bg-ruby-hover text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl font-bold transition-all" id="close-modal-btn">Got it</button>
-</div>
-</div>
-<!-- Toast -->
-<div class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-white text-black px-10 py-3 rounded-lg font-black uppercase tracking-widest text-xs shadow-[0_20px_50px_rgba(227,27,84,0.3)] transition-all duration-300 translate-y-20 opacity-0 pointer-events-none z-[10001]" id="toast">
-    ✓ Copied
-  </div>
 <script>
-    // Constants
-    const SCRIPT_URL = 'loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()';
-
-    // Particle System
-    const canvas = document.getElementById('particles-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    const particleCount = 60;
-
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    function copyLoader() {
+      const code = document.getElementById('script-code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('Script copied to clipboard!');
+      });
     }
 
+    // Simple reveal animation observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Custom Particle System
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    let mouse = { x: null, y: null, radius: 150 };
+
+    window.addEventListener('mousemove', (event) => {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+
     class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 1.5;
-        this.speedX = (Math.random() - 0.5) * 0.3;
-        this.speedY = (Math.random() - 0.5) * 0.3;
-        this.opacity = Math.random() * 0.4;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-      }
-      draw() {
-        ctx.fillStyle = `rgba(227, 27, 84, ${this.opacity})`;
-        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-      }
+        constructor(x, y, size, color, weight) {
+            this.x = x;
+            this.y = y;
+            this.size = size;
+            this.color = color;
+            this.weight = weight;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+        update() {
+            this.size -= 0.05;
+            if (this.size < 0) {
+                this.x = (mouse.x + ((Math.random() * 20) - 10));
+                this.y = (mouse.y + ((Math.random() * 20) - 10));
+                this.size = (Math.random() * 5) + 1;
+                this.weight = (Math.random() * 2) - 0.5;
+            }
+            this.y += this.weight;
+            this.weight += 0.2;
+            
+            if (this.y > canvas.height - this.size) {
+                this.weight *= -0.5;
+            }
+            
+            // Interaction
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < mouse.radius) {
+                this.x -= dx / 10;
+                this.y -= dy / 10;
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(227, 27, 84, ${1 - distance/mouse.radius})`;
+                ctx.lineWidth = 0.5;
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
+            }
+        }
     }
 
     function initParticles() {
-      for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        particlesArray = [];
+        for (let i = 0; i < 150; i++) {
+            let size = (Math.random() * 5) + 1;
+            let x = Math.random() * canvas.width;
+            let y = Math.random() * canvas.height;
+            let color = 'rgba(255, 255, 255, 0.2)';
+            let weight = 1;
+            particlesArray.push(new Particle(x, y, size, color, weight));
+        }
     }
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(animate);
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+            particlesArray[i].draw();
+        }
+        requestAnimationFrame(animateParticles);
     }
 
-    // Cursor
-    const dot = document.getElementById('cursor-dot');
-    const outline = document.getElementById('cursor-outline');
-    let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0, outlineX = 0, outlineY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX; mouseY = e.clientY;
-    });
-
-    function updateCursor() {
-      dotX = mouseX; dotY = mouseY;
-      dot.style.left = `${dotX - 4}px`; dot.style.top = `${dotY - 4}px`;
-      outlineX += (mouseX - outlineX) * 0.15; outlineY += (mouseY - outlineY) * 0.15;
-      outline.style.left = `${outlineX - 20}px`; outline.style.top = `${outlineY - 20}px`;
-      requestAnimationFrame(updateCursor);
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
     }
 
-    // Utility Functions
-    function copyLoader() {
-      navigator.clipboard.writeText(SCRIPT_URL);
-      const toast = document.getElementById('toast');
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      toast.classList.add('translate-y-0', 'opacity-100');
-      setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-        toast.classList.remove('translate-y-0', 'opacity-100');
-      }, 3000);
-    }
-
-    function switchTab(tabId) {
-      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.menu-content').forEach(c => c.classList.remove('active'));
-      
-      const tabs = Array.from(document.querySelectorAll('.menu-tab'));
-      const activeTab = tabs.find(t => t.textContent.toLowerCase() === tabId);
-      if (activeTab) activeTab.classList.add('active');
-      
-      const targetContent = document.getElementById(`menu-${tabId}`);
-      if (targetContent) targetContent.classList.add('active');
-    }
-
-    // Modal Logic
-    const copyrightBtn = document.getElementById('copyright-btn');
-    const modal = document.getElementById('copyright-modal');
-    const closeBtn = document.getElementById('close-modal-btn');
-    const backdrop = document.getElementById('modal-backdrop');
-
-    copyrightBtn.onclick = () => modal.classList.add('active');
-    closeBtn.onclick = () => modal.classList.remove('active');
-    backdrop.onclick = () => modal.classList.remove('active');
-
-    // Scroll Reveal
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-    }, { threshold: 0.1 });
-
+    window.addEventListener('resize', resizeCanvas);
+    
     // Initialize
-    window.onload = () => {
-      window.addEventListener('resize', resize);
-      resize();
-      initParticles();
-      animate();
-      updateCursor();
-      document.querySelectorAll('.reveal').forEach(r => revealObserver.observe(r));
-      
-      window.addEventListener('scroll', () => {
-        const nav = document.getElementById('navbar');
-        if (window.scrollY > 50) nav.classList.add('nav-scrolled');
-        else nav.classList.remove('nav-scrolled');
-      });
-    };
-  </script>
+    resizeCanvas();
+    animateParticles();
+</script>
 </body></html>
