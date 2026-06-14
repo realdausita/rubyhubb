@@ -3,6 +3,12 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Ruby Hub — The Ultimate Roblox Script Hub</title>
 <meta content="Ruby Hub is a powerful, free Roblox script hub supporting Break In 1 and Evade. Join our community and enhance your gaming experience." name="description"/>
+<!-- SEO & OpenGraph Tags -->
+<meta content="Ruby Hub | The Premier Roblox Scripting Utility" property="og:title"/>
+<meta content="Elevate your gameplay with Ruby Hub. Fast, stable, and completely free Lua scripts for the world's most popular experiences." property="og:description"/>
+<meta content="https://lh3.googleusercontent.com/aida/AP1WRLtFcPjgPOm5BP0tAKQdPN6s49iPr4GPzX7t26Lc5lK2v62Wla6U9yRUD4OfmcdHDtW4SFUgWcS2q-lT-jJs0luojxvlBA4w_1I9SsV2A87wq1iPRdZlhnVI6va94bEJD77u2C8qDYrG5v7lzGImdRe7oA5Pngwu1o9PsHn-haJLkq0C9JPKLHIaG_gJOhVtJseA5YzwhJxt5jW4SUTV_vuFFAyTBrtRBBrYx2JMCjQFFVP2L8bCq8vCJA" property="og:image"/>
+<meta content="website" property="og:type"/>
+<meta content="summary_large_image" name="twitter:card"/>
 <meta content="#E31B54" name="theme-color"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -68,15 +74,29 @@
       font-family: 'Inter', sans-serif;
     }
 
-    /* Fluid Background Mesh */
+    /* High Fidelity Background */
     .bg-mesh-container {
       position: fixed;
       inset: 0;
       z-index: -3;
       overflow: hidden;
       background: #050508;
+      background-image: linear-gradient(rgba(227, 27, 84, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(227, 27, 84, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
     }
     
+    /* Mouse Spotlight Effect */
+    #spotlight {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -2;
+      background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(227, 27, 84, 0.12), transparent 80%);
+    }
+
     .bg-mesh-blob-1 {
       position: absolute;
       top: -20%;
@@ -87,45 +107,24 @@
       filter: blur(80px);
       animation: mesh 25s infinite alternate ease-in-out;
     }
-    
-    .bg-mesh-blob-2 {
-      position: absolute;
-      bottom: -10%;
-      right: -20%;
-      width: 70%;
-      height: 70%;
-      background: radial-gradient(circle, rgba(0, 234, 255, 0.05) 0%, rgba(5, 5, 8, 0) 70%);
-      filter: blur(100px);
-      animation: mesh 30s infinite alternate-reverse ease-in-out;
-    }
-
-    .bg-mesh-blob-3 {
-      position: absolute;
-      top: 40%;
-      left: 30%;
-      width: 40%;
-      height: 40%;
-      background: radial-gradient(circle, rgba(227, 27, 84, 0.08) 0%, rgba(5, 5, 8, 0) 70%);
-      filter: blur(60px);
-      animation: mesh 20s infinite alternate ease-in-out;
-    }
 
     .glass-card {
-      background: rgba(10, 10, 15, 0.6);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(10, 10, 15, 0.4);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .glass-card:hover {
-      border-color: rgba(227, 27, 84, 0.5);
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 20px 40px -20px rgba(227, 27, 84, 0.4), inset 0 0 20px rgba(227, 27, 84, 0.1);
+      border-color: rgba(227, 27, 84, 0.4);
+      transform: translateY(-4px);
+      background: rgba(15, 15, 20, 0.6);
+      box-shadow: 0 15px 35px -15px rgba(227, 27, 84, 0.3);
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(40px);
-      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal.active {
       opacity: 1;
@@ -133,50 +132,40 @@
     }
 
     .gradient-text {
-      background: linear-gradient(135deg, #FFFFFF 0%, #E31B54 100%);
+      background: linear-gradient(135deg, #FFFFFF 30%, #E31B54 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .ruby-glow {
-      box-shadow: 0 0 30px rgba(227, 27, 84, 0.4);
-    }
-
-    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #050508; }
     ::-webkit-scrollbar-thumb { background: #1A1A24; border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: #E31B54; }
 
     .nav-scrolled {
-      background: rgba(5, 5, 8, 0.9) !important;
+      background: rgba(5, 5, 8, 0.8) !important;
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-    
-    .bg-gradient-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: -2;
-        background: linear-gradient(to bottom, rgba(5,5,8,0.3) 0%, rgba(5,5,8,0.8) 100%);
-        pointer-events: none;
-    }
 
     .hero-title {
-        font-size: clamp(4rem, 10vw, 8rem);
-        letter-spacing: 0.2em;
+        font-size: clamp(3.5rem, 12vw, 9rem);
+        letter-spacing: 0.25em;
         font-weight: 900;
-        text-shadow: 0 0 40px rgba(227, 27, 84, 0.3);
+        text-shadow: 0 0 50px rgba(227, 27, 84, 0.25);
     }
 
+    .modal-backdrop {
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(10px);
+    }
   </style>
 </head>
 <body class="antialiased">
 <div class="bg-mesh-container">
 <div class="bg-mesh-blob-1"></div>
-<div class="bg-mesh-blob-2"></div>
-<div class="bg-mesh-blob-3"></div>
 </div>
-<div class="bg-gradient-overlay"></div>
+<div id="spotlight"></div>
 <canvas id="particles-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
 <!-- NAVIGATION -->
 <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-6 px-6 md:px-12" id="navbar">
@@ -205,214 +194,170 @@
 <!-- HERO -->
 <section class="relative min-h-screen flex flex-col items-center justify-center pt-32 px-6 overflow-hidden">
 <div class="relative z-10 max-w-5xl text-center reveal active flex flex-col items-center">
-<h1 class="hero-title mb-2 uppercase text-white tracking-[0.3em]">
+<h1 class="hero-title mb-4 uppercase text-white tracking-[0.35em]">
         RUBY
 </h1>
-<p class="text-xl md:text-2xl text-gray-300 font-light tracking-wide mb-12">
-        A fast, stable, and persistent Lua Hub for Roblox. <span class="font-medium text-white opacity-80">With Ruby Hub</span>
+<p class="text-lg md:text-xl text-gray-300 font-light tracking-widest mb-12 max-w-3xl leading-relaxed">
+        Engineered for precision. Built for stability. <br class="hidden md:block"/> Experience the premier Lua executor hub for the Roblox ecosystem.
 </p>
-<div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8 w-full max-w-2xl">
-<button class="w-full sm:w-auto px-12 py-4 bg-black text-white rounded-full font-medium text-lg border border-white/10 hover:bg-white/5 transition-all active:scale-95 shadow-2xl" onclick="copyLoader()">
+<div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-10 w-full max-w-2xl">
+<button class="w-full sm:w-auto px-12 py-4 bg-white text-black rounded-full font-bold text-sm uppercase tracking-widest hover:bg-ruby hover:text-white transition-all active:scale-95 shadow-xl" onclick="copyLoader()">
           Copy Script
         </button>
-<a class="w-full sm:w-auto px-12 py-4 bg-white/10 text-white rounded-full font-medium text-lg border border-white/5 hover:bg-white/20 transition-all active:scale-95 backdrop-blur-sm" href="https://discord.gg/Jvq7MtJKE2" target="_blank">
+<a class="w-full sm:w-auto px-12 py-4 bg-white/5 text-white rounded-full font-bold text-sm uppercase tracking-widest border border-white/10 hover:bg-white/15 transition-all active:scale-95 backdrop-blur-sm" href="https://discord.gg/Jvq7MtJKE2" target="_blank">
           Get Free Key
         </a>
 </div>
-<p class="text-xs text-gray-500 font-medium bg-black/40 px-4 py-2 rounded-full border border-white/5 backdrop-blur-sm">Free key is available. By using Ruby Hub, you agree to our Terms of Service.</p>
+<p class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-semibold bg-black/40 px-6 py-2 rounded-full border border-white/5 backdrop-blur-md">Secure. Private. Free Forever.</p>
 </div>
 </section>
 <!-- FEATURES -->
-<section class="py-32 px-6 relative" id="features">
+<section class="py-40 px-6 relative" id="features">
 <div class="max-w-7xl mx-auto">
-<div class="text-center mb-20 reveal">
-<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Why Ruby Hub?</h3>
-<p class="text-gray-400 max-w-2xl mx-auto text-lg">Engineered for performance and stability across multiple environments.</p>
+<div class="text-center mb-24 reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Superior Reliability</h3>
+<p class="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">Performance metrics that redefine expectations for free scripting utilities.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 <div class="glass-card p-12 rounded-3xl reveal group">
-<div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-ruby/50 transition-colors">
-<svg class="w-8 h-8 text-white group-hover:text-ruby transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-ruby/30 transition-colors">
+<svg class="w-6 h-6 text-white group-hover:text-ruby transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
 </div>
-<h4 class="text-2xl font-medium tracking-wide mb-4">100% Free</h4>
-<p class="text-gray-400 leading-relaxed">Enjoy premium-level scripting at no cost — Ruby Hub is free for all, forever.</p>
-</div>
-<div class="glass-card p-12 rounded-3xl reveal group">
-<div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-ruby/50 transition-colors">
-<svg class="w-8 h-8 text-white group-hover:text-ruby transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-</div>
-<h4 class="text-2xl font-medium tracking-wide mb-4">Always Improving</h4>
-<p class="text-gray-400 leading-relaxed">Ruby Hub is here for the long run and just keeps getting better with every update.</p>
+<h4 class="text-xl font-semibold tracking-wider mb-4">Unrestricted Access</h4>
+<p class="text-gray-400 leading-relaxed text-sm">Professional-grade scripting accessible to everyone at zero cost, permanently.</p>
 </div>
 <div class="glass-card p-12 rounded-3xl reveal group">
-<div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-ruby/50 transition-colors">
-<svg class="w-8 h-8 text-white group-hover:text-ruby transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 12h16m-8-8v16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-ruby/30 transition-colors">
+<svg class="w-6 h-6 text-white group-hover:text-ruby transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
 </div>
-<h4 class="text-2xl font-medium tracking-wide mb-4">Fast Updates</h4>
-<p class="text-gray-400 leading-relaxed">Ruby Hub is always up to date, so you never have to wait for script patches.</p>
+<h4 class="text-xl font-semibold tracking-wider mb-4">Continuous Evolution</h4>
+<p class="text-gray-400 leading-relaxed text-sm">Our codebase is meticulously maintained to ensure compatibility with game patches.</p>
+</div>
+<div class="glass-card p-12 rounded-3xl reveal group">
+<div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-ruby/30 transition-colors">
+<svg class="w-6 h-6 text-white group-hover:text-ruby transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 12h16m-8-8v16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<h4 class="text-xl font-semibold tracking-wider mb-4">Rapid Deployment</h4>
+<p class="text-gray-400 leading-relaxed text-sm">Near-instant update cycles mean you spend less time waiting and more time playing.</p>
 </div>
 </div>
 </div>
 </section>
 <!-- ABOUT -->
-<section class="py-32 px-6 relative bg-white/5" id="about">
+<section class="py-40 px-6 relative" id="about">
 <div class="max-w-5xl mx-auto text-center reveal">
-<h3 class="text-4xl md:text-5xl font-light mb-8 tracking-wide">About Us</h3>
-<p class="text-gray-300 text-lg md:text-xl leading-relaxed mb-12">
-    Ruby Hub started with a simple mission: to provide the Roblox community with a high-quality, reliable, and completely free script hub. We believe that everyone should have access to the best tools without hidden paywalls or intrusive key systems. Our dedicated team works tirelessly to ensure that Ruby Hub remains at the forefront of the exploiting scene, offering unparalleled performance and consistent updates.
+<h3 class="text-4xl md:text-5xl font-light mb-10 tracking-wide">Our Mission</h3>
+<p class="text-gray-300 text-lg md:text-xl leading-relaxed mb-16 font-light">
+    Ruby Hub emerged from a vision of a unified, high-performance execution environment for the community. We strive to dismantle the barriers of entry to professional scripting by providing a secure, keyless-optional platform that prioritizes user experience and script stability over monetization.
   </p>
-<div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-ruby to-transparent rounded-full">
-<div class="px-8 py-4 bg-black/80 rounded-full backdrop-blur-sm">
-<p class="text-sm text-gray-400 tracking-widest uppercase">Driven by Passion. Powered by Community.</p>
+<div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-ruby/50 to-transparent rounded-full">
+<div class="px-10 py-5 bg-black/40 rounded-full backdrop-blur-xl border border-white/5">
+<p class="text-xs text-gray-400 tracking-[0.3em] uppercase font-bold">Innovation. Community. Freedom.</p>
 </div>
 </div>
 </div>
 </section>
 <!-- COMPARISON SECTION -->
-<section class="py-32 px-6 relative" id="comparison">
+<section class="py-40 px-6 relative" id="comparison">
 <div class="max-w-6xl mx-auto">
-<div class="text-center mb-20 reveal">
-<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Ruby vs Others</h3>
+<div class="text-center mb-24 reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">The Ruby Advantage</h3>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-<div class="glass-card p-12 rounded-3xl reveal border border-ruby/30 bg-ruby/5 relative overflow-hidden">
-<div class="absolute top-0 right-0 w-64 h-64 bg-ruby/10 blur-3xl rounded-full pointer-events-none"></div>
-<h4 class="text-3xl font-medium mb-10 tracking-wide text-white flex items-center gap-4">
-      Ruby Hub <span class="text-xs bg-ruby/20 text-ruby px-3 py-1.5 rounded-full font-bold uppercase tracking-widest border border-ruby/30">Winner</span>
+<div class="glass-card p-12 rounded-3xl reveal border border-ruby/20 bg-ruby/[0.03] relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-ruby/5 blur-3xl rounded-full pointer-events-none"></div>
+<h4 class="text-2xl font-bold mb-12 tracking-widest text-white flex items-center gap-4 uppercase">
+      Ruby Hub <span class="text-[10px] bg-ruby/20 text-ruby px-3 py-1.5 rounded-full font-black uppercase tracking-[0.2em] border border-ruby/30">Industry Leader</span>
 </h4>
-<ul class="space-y-6">
-<li class="flex items-center gap-5"><div class="bg-green-500/10 p-2 rounded-full border border-green-500/20"><svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-200">Free</span></li>
-<li class="flex items-center gap-5"><div class="bg-green-500/10 p-2 rounded-full border border-green-500/20"><svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-200">Keyless</span></li>
-<li class="flex items-center gap-5"><div class="bg-green-500/10 p-2 rounded-full border border-green-500/20"><svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-200">Supports 99% of Hubs</span></li>
-<li class="flex items-center gap-5"><div class="bg-green-500/10 p-2 rounded-full border border-green-500/20"><svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-200">Instant Updates</span></li>
+<ul class="space-y-8">
+<li class="flex items-center gap-6"><div class="bg-ruby/10 p-2.5 rounded-full border border-ruby/20"><svg class="w-5 h-5 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></div><span class="text-lg font-medium text-gray-200">Zero Cost Entry</span></li>
+<li class="flex items-center gap-6"><div class="bg-ruby/10 p-2.5 rounded-full border border-ruby/20"><svg class="w-5 h-5 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></div><span class="text-lg font-medium text-gray-200">Simplified Key System</span></li>
+<li class="flex items-center gap-6"><div class="bg-ruby/10 p-2.5 rounded-full border border-ruby/20"><svg class="w-5 h-5 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></div><span class="text-lg font-medium text-gray-200">Universal Game Support</span></li>
+<li class="flex items-center gap-6"><div class="bg-ruby/10 p-2.5 rounded-full border border-ruby/20"><svg class="w-5 h-5 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></div><span class="text-lg font-medium text-gray-200">Automated Live Updates</span></li>
 </ul>
 </div>
-<div class="glass-card p-12 rounded-3xl reveal relative overflow-hidden">
-<h4 class="text-3xl font-medium mb-10 tracking-wide text-gray-500">Others</h4>
-<ul class="space-y-6 opacity-60">
-<li class="flex items-center gap-5"><div class="bg-red-500/10 p-2 rounded-full border border-red-500/20"><svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-400">Paid</span></li>
-<li class="flex items-center gap-5"><div class="bg-red-500/10 p-2 rounded-full border border-red-500/20"><svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-400">Key System</span></li>
-<li class="flex items-center gap-5"><div class="bg-red-500/10 p-2 rounded-full border border-red-500/20"><svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-400">Supports 1% of Hubs</span></li>
-<li class="flex items-center gap-5"><div class="bg-red-500/10 p-2 rounded-full border border-red-500/20"><svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><span class="text-lg font-medium text-gray-400">Slow Updates</span></li>
+<div class="glass-card p-12 rounded-3xl reveal relative overflow-hidden opacity-60">
+<h4 class="text-2xl font-bold mb-12 tracking-widest text-gray-500 uppercase">Others</h4>
+<ul class="space-y-8">
+<li class="flex items-center gap-6"><div class="bg-white/5 p-2.5 rounded-full border border-white/10"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></div><span class="text-lg font-medium text-gray-500">Subscription Based</span></li>
+<li class="flex items-center gap-6"><div class="bg-white/5 p-2.5 rounded-full border border-white/10"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></div><span class="text-lg font-medium text-gray-500">Intrusive Linkvertise</span></li>
+<li class="flex items-center gap-6"><div class="bg-white/5 p-2.5 rounded-full border border-white/10"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></div><span class="text-lg font-medium text-gray-500">Limited Library</span></li>
+<li class="flex items-center gap-6"><div class="bg-white/5 p-2.5 rounded-full border border-white/10"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></div><span class="text-lg font-medium text-gray-500">Lagging Support</span></li>
 </ul>
 </div>
 </div>
 </div>
 </section>
 <!-- GAMES -->
-<section class="py-32 px-6" id="games">
+<section class="py-40 px-6" id="games">
 <div class="max-w-7xl mx-auto">
-<div class="text-center mb-20 reveal">
-<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Supported Games</h3>
+<div class="text-center mb-24 reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Supported Experiences</h3>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 <!-- Break In -->
 <div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
 <div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="Break In" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGaBTUKj2xrHgB2SZKjuxM_x-O3FGiWJOU5K0OrMjC6C0qnPfFD0ybfYXxD1lT18zvExS94vHwCgq4c-ShF93Xz70twrHtRfK5Nch11-hC9ox0w2E9YmU6Deo5i_nlabUz-cTbyfgKKOb1mMnuvEBucvOUERTGjqXImfLv0bggRBh1XQFv5zrseAQnnyMtew3YwBqJ7jFuV9jvswz9y9SuE08skQ1NYddpqFUH_JpdHfZqIG7k7ZhoFBQiUdkNqKpkpGvP6V5ohJI"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Break In 1</h4>
-<p class="text-sm text-gray-300 font-medium">Includes Auto-Cook, Silent Aim, Godmode...</p>
+<img alt="Break In" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGaBTUKj2xrHgB2SZKjuxM_x-O3FGiWJOU5K0OrMjC6C0qnPfFD0ybfYXxD1lT18zvExS94vHwCgq4c-ShF93Xz70twrHtRfK5Nch11-hC9ox0w2E9YmU6Deo5i_nlabUz-cTbyfgKKOb1mMnuvEBucvOUERTGjqXImfLv0bggRBh1XQFv5zrseAQnnyMtew3YwBqJ7jFuV9jvswz9y9SuE08skQ1NYddpqFUH_JpdHfZqIG7k7ZhoFBQiUdkNqKpkpGvP6V5ohJI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#050508] via-[#050508]/20 to-transparent"></div>
+<div class="absolute bottom-8 left-8 right-8">
+<h4 class="text-xl font-bold mb-2 tracking-widest text-white uppercase">Break In 1</h4>
+<p class="text-xs text-gray-400 font-medium tracking-wide uppercase">Auto-Cook • Silent Aim • Godmode</p>
 </div>
 </div>
 </div>
 <!-- Evade -->
 <div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
 <div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="Evade" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKgV4MOTFq1QStmP-OBapyfRYyH7Nw6Vn24Vpg4dX4UGBhHzlSfdReq2imotsllouO3Xq9fD_r1p0QEncLeyD-uYxq2eQ30BiAePSbPV_Y6XbQ6pk0XwumihpwZIj2V82HXb8HqjZpupgWhWo6KOZQw6QxiB5jCRgE4UvIZvZYZEHVfU9rcxN79ghaFBi5bh1ZQWB0vpJ_Lbx9aMp1kokuYRBspMlh1OYeoqA3EVj6ibS3RzL3s-CmnwGPrQsQARzei1LwjP39FHU"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Evade</h4>
-<p class="text-sm text-gray-300 font-medium">Includes Speed Exploit, Auto-Revive, ESP...</p>
+<img alt="Evade" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKgV4MOTFq1QStmP-OBapyfRYyH7Nw6Vn24Vpg4dX4UGBhHzlSfdReq2imotsllouO3Xq9fD_r1p0QEncLeyD-uYxq2eQ30BiAePSbPV_Y6XbQ6pk0XwumihpwZIj2V82HXb8HqjZpupgWhWo6KOZQw6QxiB5jCRgE4UvIZvZYZEHVfU9rcxN79ghaFBi5bh1ZQWB0vpJ_Lbx9aMp1kokuYRBspMlh1OYeoqA3EVj6ibS3RzL3s-CmnwGPrQsQARzei1LwjP39FHU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#050508] via-[#050508]/20 to-transparent"></div>
+<div class="absolute bottom-8 left-8 right-8">
+<h4 class="text-xl font-bold mb-2 tracking-widest text-white uppercase">Evade</h4>
+<p class="text-xs text-gray-400 font-medium tracking-wide uppercase">Speed Exploit • Auto-Revive • ESP</p>
 </div>
 </div>
 </div>
 <!-- Forsaken -->
 <div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
 <div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="Forsaken" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGZgjL5bkldL1i3q9b7tStu2QdJ3UlX5O9QrfJQe54FP_ACQW62TvM0dK4GBOB8Iagh4jWh7r7NJ8slHgs0pHGfgJViJ1Wubs1v6w8mVEBKgpLYA8EbjdQ4fxsa0PP9WJ_u9-Sw0063IesxXjyxLlluJCqOBaQ-yKzd7PnJ0VbkyMv6HEw5KofsPKdV37nydhh45MYP_Nn-z836UOMz228_8Kxh66bGveBnqpuAMIJ9H0dcF4IaBO0xSuC8WEJGfQlH5X-9ryv0Ow"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Forsaken</h4>
-<p class="text-sm text-gray-300 font-medium">Premium script features for total dominance.</p>
+<img alt="Forsaken" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGZgjL5bkldL1i3q9b7tStu2QdJ3UlX5O9QrfJQe54FP_ACQW62TvM0dK4GBOB8Iagh4jWh7r7NJ8slHgs0pHGfgJViJ1Wubs1v6w8mVEBKgpLYA8EbjdQ4fxsa0PP9WJ_u9-Sw0063IesxXjyxLlluJCqOBaQ-yKzd7PnJ0VbkyMv6HEw5KofsPKdV37nydhh45MYP_Nn-z836UOMz228_8Kxh66bGveBnqpuAMIJ9H0dcF4IaBO0xSuC8WEJGfQlH5X-9ryv0Ow"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#050508] via-[#050508]/20 to-transparent"></div>
+<div class="absolute bottom-8 left-8 right-8">
+<h4 class="text-xl font-bold mb-2 tracking-widest text-white uppercase">Forsaken</h4>
+<p class="text-xs text-gray-400 font-medium tracking-wide uppercase">Premium Suite • Global ESP • Hitbox</p>
 </div>
 </div>
 </div>
 <!-- Lemon Sells -->
 <div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
 <div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="Lemon Sells" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVTr8tbFHpeIyjmC5qB_z3OdI6C_MC1yRTm8D2umYc3J28UKKbNdUgECLpg1jeSVf_vlyFgTPrGktfISZX9pf5xLwOM9CEeVnqwGtmWKMybaEXbzqEsPP2T2WgbgFJODus8Emn70w1wzni_q9dnW4a-pBSxuyyamcxcCJV0arBwrwGhbmYekzrXe26lbHProFDqj2O2-yszWuaDo5CFiwjVqxpnG65GXQrrFdEgTKM3jgk9mk5v0v3R0qf4Fkoivo10NK4Eb2qWQ0"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Lemon Sells</h4>
-<p class="text-sm text-gray-300 font-medium">Boost your earnings and automate your stands.</p>
-</div>
-</div>
-</div>
-<!-- +1 Speed Escape -->
-<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
-<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="+1 Speed Escape" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfixPai1SjfZp7meh7D5zU9isayXW1ixuQrpTkcEHeiDCA2BzTNWI7IHWdnc-sFIalMLwUsIYubunYNqNvGUDoEE4DvKQQGoiMWhg0DSHgQLCRgY4lbEHUaHh9bw5sOMP5z4aOwg2EmAHquNg-Mb2jYYjs026hPfxeaxLKUyIQakbAyu1aZ5icKYrBxzmFLd7jvoEF_b6T1uJlG4zI-hOJdSTxzaRUy-dBx71g2pmwq7Uo8h5gudkGHEwBPynHjcOrwRXp0w5yEbc"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">+1 Speed Escape</h4>
-<p class="text-sm text-gray-300 font-medium">Complete courses instantly with max speed tools.</p>
-</div>
-</div>
-</div>
-<!-- Draw A Sleigh -->
-<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
-<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="Draw A Sleigh" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHu17-zHtfJhKI-pf0_gAGig5APnRQNjDswgSASYvE1fkD02Ej3x6f8ZxeMKt0SL6uTHK00eKM2fiJHmnhM7DXRHkRlUJIZ9afxYeKamhlbjeVMhpSIvCyYpLrqY3C5bymk7WhU8fv8mExM4b1BriwpUjJiRMuLAoPV8tZMWAtfgbJh_3KKI6CbWH4sIyLy-DbIJG7SoBmjYzkfWpPHsyjUlBjmpi4lPgGLsFN2gkKIvLB4LPsaNiITJVOPa_iGNveBF0gVYV9Y5M"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Draw A Sleigh</h4>
-<p class="text-sm text-gray-300 font-medium">Enhance your rides and dominate tracks.</p>
+<img alt="Lemon Sells" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVTr8tbFHpeIyjmC5qB_z3OdI6C_MC1yRTm8D2umYc3J28UKKbNdUgECLpg1jeSVf_vlyFgTPrGktfISZX9pf5xLwOM9CEeVnqwGtmWKMybaEXbzqEsPP2T2WgbgFJODus8Emn70w1wzni_q9dnW4a-pBSxuyyamcxcCJV0arBwrwGhbmYekzrXe26lbHProFDqj2O2-yszWuaDo5CFiwjVqxpnG65GXQrrFdEgTKM3jgk9mk5v0v3R0qf4Fkoivo10NK4Eb2qWQ0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#050508] via-[#050508]/20 to-transparent"></div>
+<div class="absolute bottom-8 left-8 right-8">
+<h4 class="text-xl font-bold mb-2 tracking-widest text-white uppercase">Lemon Sells</h4>
+<p class="text-xs text-gray-400 font-medium tracking-wide uppercase">Market Automation • Stand Boosts</p>
 </div>
 </div>
 </div>
 <!-- Blox Fruits -->
 <div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
 <div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="Blox Fruits" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwKRZeTod64jCMGMZOR-8hVvclcGYbhDIwLCeXp9JeAcvAAI88ia0xXlF0ZuL5MGEkMXIWzbNFY0b32Ihx1MtzlXk1gC9yNWwm49WjH-4OO9sBF3o8esz_K8sdK92qqRP6aga5lDQKxWuDACzkkxlZ_M9aGTx8dictwLbKLV4A_x9zbIeVUt5864KQ-tPOUefGsfqdt4XyVR_IviT2wuzAVgjg7nmgBpQhLjJFUjoPeg-RpUoIhaaXRNhZnKB-eFPu1wmhGbTQukc"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Blox Fruits</h4>
-<p class="text-sm text-gray-300 font-medium">Auto-farm, auto-quest, and level up faster.</p>
+<img alt="Blox Fruits" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwKRZeTod64jCMGMZOR-8hVvclcGYbhDIwLCeXp9JeAcvAAI88ia0xXlF0ZuL5MGEkMXIWzbNFY0b32Ihx1MtzlXk1gC9yNWwm49WjH-4OO9sBF3o8esz_K8sdK92qqRP6aga5lDQKxWuDACzkkxlZ_M9aGTx8dictwLbKLV4A_x9zbIeVUt5864KQ-tPOUefGsfqdt4XyVR_IviT2wuzAVgjg7nmgBpQhLjJFUjoPeg-RpUoIhaaXRNhZnKB-eFPu1wmhGbTQukc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#050508] via-[#050508]/20 to-transparent"></div>
+<div class="absolute bottom-8 left-8 right-8">
+<h4 class="text-xl font-bold mb-2 tracking-widest text-white uppercase">Blox Fruits</h4>
+<p class="text-xs text-gray-400 font-medium tracking-wide uppercase">Auto-Farm • Quest Skip • Fruit ESP</p>
 </div>
 </div>
 </div>
 <!-- Murder Mystery 2 -->
 <div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
 <div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="Murder Mystery 2" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR6CJFI-mHVxNMU7A2L3V35A3PaV_cFrlBJZ9hDOmYBdGGyf2ZSveo9sVHRgy-Zdp_MWPrzVk2PhFsCKEHlJyCZiwdNzUiPKa6gkrXgrEBEmd8EP6XYMp90ltS6JDF5jfiOBymswj5Plqv-NzmnHbymbQYL-A0G2etsPuaqoGK3dE_eluXV3ut5Z77Nt2HhTdEf8MxSroxHHn0C8LZC-FyTm7OQBDS44pZFhWbJGMuuD_3Rf99inYEBXBsvvO47yoL5XZeoHb4m64"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Murder Mystery 2</h4>
-<p class="text-sm text-gray-300 font-medium">ESP, silent aim, and coin farming.</p>
-</div>
-</div>
-</div>
-<!-- Break In 2 -->
-<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
-<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="Break In 2" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG4IICkrqkI51QylZ29JvikRcfisgpR1w7WUg8V3MJGp5N-9cPpd_0zVAnGrGYIgGPwa9z0FkIp2AEmGYTmZ0nDrPyuJrp7l6RP46zEW_0RVWf_c26xIDk7k4z9N6UsF91zoiNEfYs7V7LToBPL5wyuYkynxn_Ivvm9oP9kiu9xd7-u-bC2YbR3xAWX-gx0E2pnkE7T-ReWooQyWFXXeiFS3EnuuLZp_iiSSlNCJHHowS6nYaFA3-Thvq-WAgIFO83vW_VgasrDMQ"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Break In (2)</h4>
-<p class="text-sm text-gray-300 font-medium">Complete the sequel with godmode and items.</p>
-</div>
-</div>
-</div>
-<!-- Dead Rails -->
-<div class="group relative overflow-hidden rounded-3xl reveal h-full flex flex-col glass-card">
-<div class="aspect-video w-full flex items-center justify-center relative overflow-hidden">
-<img alt="Dead Rails" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc8WVu0l9lwjM7sUjKVqwpen1E4iicC8do6wbFmzTUY0FUIecIgFjhi8Kh3V6AggT1SzDlyRUhh885xiAQbKL7E-fxYwbXZuorEoWgPhT6FeozLZ3RxNTuAmBbT3YXoIUIGobmu_8VscnQCucKJla5tWPw6WRwU2KSCdF_BMWjMT9tuKZj4Fnsk3ZwhAtU_O2OCYseR8LELVlB_51X5Ew1b6APQyjdqisWoTt3oduLZToyJNo3n2hiFuFOlU3uzpzUSi0TRrSWsqU"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<h4 class="text-2xl font-bold mb-2 tracking-wide text-white drop-shadow-md">Dead Rails</h4>
-<p class="text-sm text-gray-300 font-medium">Survive the tracks with infinite ammo.</p>
+<img alt="Murder Mystery 2" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR6CJFI-mHVxNMU7A2L3V35A3PaV_cFrlBJZ9hDOmYBdGGyf2ZSveo9sVHRgy-Zdp_MWPrzVk2PhFsCKEHlJyCZiwdNzUiPKa6gkrXgrEBEmd8EP6XYMp90ltS6JDF5jfiOBymswj5Plqv-NzmnHbymbQYL-A0G2etsPuaqoGK3dE_eluXV3ut5Z77Nt2HhTdEf8MxSroxHHn0C8LZC-FyTm7OQBDS44pZFhWbJGMuuD_3Rf99inYEBXBsvvO47yoL5XZeoHb4m64"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#050508] via-[#050508]/20 to-transparent"></div>
+<div class="absolute bottom-8 left-8 right-8">
+<h4 class="text-xl font-bold mb-2 tracking-widest text-white uppercase">Murder Mystery 2</h4>
+<p class="text-xs text-gray-400 font-medium tracking-wide uppercase">Role Reveal • Silent Kill • Coin Farm</p>
 </div>
 </div>
 </div>
@@ -420,68 +365,132 @@
 </div>
 </section>
 <!-- SCRIPT -->
-<section class="py-32 px-6 relative overflow-hidden" id="script">
+<section class="py-40 px-6 relative overflow-hidden" id="script">
 <div class="max-w-5xl mx-auto">
-<div class="text-center mb-16 reveal">
-<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Copy Script</h3>
+<div class="text-center mb-20 reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Injection Loader</h3>
 </div>
-<div class="glass-card rounded-3xl overflow-hidden reveal hover:scale-[1.01] transition-transform duration-700 shadow-2xl">
-<div class="bg-black/30 px-8 py-5 flex items-center justify-between border-b border-white/5">
-<div class="flex gap-2">
-<div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
-<div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
-<div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+<div class="glass-card rounded-[2rem] overflow-hidden reveal shadow-2xl border border-white/5 bg-black/40">
+<div class="bg-white/5 px-10 py-6 flex items-center justify-between border-b border-white/5">
+<div class="flex gap-3">
+<div class="w-3.5 h-3.5 rounded-full bg-[#FF5F56]/80"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-[#FFBD2E]/80"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-[#27C93F]/80"></div>
 </div>
-<span class="text-sm font-medium text-gray-400 tracking-wider">loader.lua</span>
-<button class="text-sm font-medium text-white bg-white/10 hover:bg-white/20 transition-colors px-6 py-2.5 rounded-full border border-white/10 active:scale-95" onclick="copyLoader()">
+<span class="text-xs font-bold text-gray-500 tracking-[0.3em] uppercase">ruby_loader.lua</span>
+<button class="text-[10px] font-black text-white bg-ruby hover:bg-ruby-hover transition-all px-8 py-3 rounded-full uppercase tracking-widest active:scale-95" onclick="copyLoader()">
             Copy
           </button>
 </div>
-<div class="p-12 text-center relative bg-black/20">
-<code class="text-gray-300 font-mono text-sm md:text-base break-all select-all leading-relaxed" id="script-code">loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()</code>
+<div class="p-16 text-center relative bg-black/10">
+<code class="text-gray-400 font-mono text-sm md:text-base break-all select-all leading-relaxed opacity-80" id="script-code">loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()</code>
 </div>
 </div>
 </div>
 </section>
 <!-- TEAM -->
-<section class="py-32 px-6" id="team">
+<section class="py-40 px-6" id="team">
 <div class="max-w-7xl mx-auto">
-<div class="text-center mb-20 reveal">
-<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Team</h3>
+<div class="text-center mb-24 reveal">
+<h3 class="text-4xl md:text-5xl font-light mb-6 tracking-wide">Development Core</h3>
 </div>
-<div class="flex flex-wrap justify-center gap-20">
+<div class="flex flex-wrap justify-center gap-24">
 <div class="group reveal text-center flex flex-col items-center">
-<div class="w-48 h-48 rounded-full mb-6 overflow-hidden border border-white/10 group-hover:border-ruby/50 transition-colors shadow-2xl relative">
-<img alt="dausita" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBazotGcygGIMv7JigB55VoeowZPcEzokc83iQVDP6-CFfhFnV450vZjPvPRX_WzW5jpvuy6aZIf_nCXeaAc1_z_A4RX_JAMGxZ8ekqONWODeJxFJA92NkHSOkMXkxPyE30TvYFOJIOy0b9w14XIIvACWGS_-CUJR77jEAVq8uf-PItoqamlHImLi1JxiqZMkXQqgCF9G-hcTrmmjcD1S56eq5XLODsLriCTSpL2bQQG2ZKS6kdlFoV4kP56bui7juY0AGKYNr6AVI"/>
+<div class="w-56 h-56 rounded-full mb-8 overflow-hidden border-2 border-white/5 group-hover:border-ruby/40 transition-all duration-700 shadow-2xl relative p-1 bg-gradient-to-b from-white/10 to-transparent">
+<img alt="dausita" class="w-full h-full rounded-full object-cover transform group-hover:scale-110 transition-transform duration-1000 grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBazotGcygGIMv7JigB55VoeowZPcEzokc83iQVDP6-CFfhFnV450vZjPvPRX_WzW5jpvuy6aZIf_nCXeaAc1_z_A4RX_JAMGxZ8ekqONWODeJxFJA92NkHSOkMXkxPyE30TvYFOJIOy0b9w14XIIvACWGS_-CUJR77jEAVq8uf-PItoqamlHImLi1JxiqZMkXQqgCF9G-hcTrmmjcD1S56eq5XLODsLriCTSpL2bQQG2ZKS6kdlFoV4kP56bui7juY0AGKYNr6AVI"/>
 </div>
-<h4 class="text-2xl font-medium mb-2 tracking-wide">dausita</h4>
-<p class="text-gray-400 text-sm tracking-wider uppercase">Founder</p>
+<h4 class="text-2xl font-medium mb-2 tracking-widest uppercase">dausita</h4>
+<p class="text-ruby text-[10px] font-black tracking-[0.4em] uppercase opacity-70">Founder</p>
 </div>
 <div class="group reveal text-center flex flex-col items-center">
-<div class="w-48 h-48 rounded-full mb-6 overflow-hidden border border-white/10 group-hover:border-ruby/50 transition-colors shadow-2xl relative">
-<img alt="beraatwr" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp6b0zb8zlSvkNO0HbSvw0KIbGp7ztgzPsUkH3b3PGR5LV5vK5Rv2JTvipeeol2FnzAZoHH5SNm2UBf52HZZ51OiMXJoOek_EUoIQI-4HiE3LU72pbt-ym9IuwOjSfvkyiXsm3KwCE9ChfRPr0OH1_IOdvN0g2GCmgqceWoZHjrsUn6EibzxnSkjExJf6FOZIvk3lF-Mn3R0bv2G2fxNvx1Z2xQjivYZ5NvsQtVNenggLInvhfUCm6wk53YnQLhXwG6jrluOaSTcU"/>
+<div class="w-56 h-56 rounded-full mb-8 overflow-hidden border-2 border-white/5 group-hover:border-ruby/40 transition-all duration-700 shadow-2xl relative p-1 bg-gradient-to-b from-white/10 to-transparent">
+<img alt="beraatwr" class="w-full h-full rounded-full object-cover transform group-hover:scale-110 transition-transform duration-1000 grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp6b0zb8zlSvkNO0HbSvw0KIbGp7ztgzPsUkH3b3PGR5LV5vK5Rv2JTvipeeol2FnzAZoHH5SNm2UBf52HZZ51OiMXJoOek_EUoIQI-4HiE3LU72pbt-ym9IuwOjSfvkyiXsm3KwCE9ChfRPr0OH1_IOdvN0g2GCmgqceWoZHjrsUn6EibzxnSkjExJf6FOZIvk3lF-Mn3R0bv2G2fxNvx1Z2xQjivYZ5NvsQtVNenggLInvhfUCm6wk53YnQLhXwG6jrluOaSTcU"/>
 </div>
-<h4 class="text-2xl font-medium mb-2 tracking-wide">beraatwr</h4>
-<p class="text-gray-400 text-sm tracking-wider uppercase">Owner &amp; Developer</p>
+<h4 class="text-2xl font-medium mb-2 tracking-widest uppercase">beraatwr</h4>
+<p class="text-ruby text-[10px] font-black tracking-[0.4em] uppercase opacity-70">Owner &amp; Architect</p>
 </div>
 </div>
 </div>
 </section>
 <!-- FOOTER -->
-<footer class="py-12 px-6 border-t border-white/5 mt-20 relative z-10 bg-black/40 backdrop-blur-xl">
-<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-sm text-gray-500">
+<footer class="py-20 px-6 border-t border-white/5 mt-20 relative z-10 bg-black/60 backdrop-blur-3xl">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 text-[11px] font-bold tracking-[0.2em] text-gray-500 uppercase">
 <div class="flex items-center gap-3">
-<span class="text-lg font-bold tracking-widest text-gray-500">RUBY HUB</span>
+<span class="text-sm font-black tracking-[0.3em] text-white/40">RUBY HUB</span>
 </div>
-<div class="flex items-center gap-6">
-<a class="hover:text-white transition-colors" href="#">Terms of Service</a>
-<a class="hover:text-white transition-colors" href="#">Privacy Policy</a>
+<div class="flex items-center gap-8">
+<button class="hover:text-white transition-colors" onclick="openModal('tos-modal')">Terms of Service</button>
+<button class="hover:text-white transition-colors" onclick="openModal('privacy-modal')">Privacy Policy</button>
+<button class="hover:text-white transition-colors" onclick="openModal('collect-modal')">What We Collect?</button>
 </div>
-<div>
+<div class="opacity-40">
     © 2024 Ruby Hub. All rights reserved.
 </div>
 </div>
 </footer>
+<!-- MODALS -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6 modal-backdrop" id="tos-modal">
+<div class="glass-card w-full max-w-2xl rounded-[2rem] p-10 md:p-16 relative">
+<button class="absolute top-8 right-8 text-gray-400 hover:text-white transition-colors" onclick="closeModal('tos-modal')">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<h3 class="text-2xl font-bold mb-8 tracking-widest uppercase">Terms of Service</h3>
+<div class="text-gray-400 text-sm leading-relaxed space-y-4 max-h-[50vh] overflow-y-auto pr-4">
+<p>By using Ruby Hub, you acknowledge that you are using this software for educational purposes and at your own risk. We are not responsible for any actions taken against your game accounts.</p>
+<p>You agree not to reverse engineer, redistribute, or attempt to monetize Ruby Hub scripts in any form without express permission from the core development team.</p>
+<p>We reserve the right to revoke access to our services for any user who violates community guidelines or attempts to harm our infrastructure.</p>
+</div>
+</div>
+</div>
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6 modal-backdrop" id="privacy-modal">
+<div class="glass-card w-full max-w-2xl rounded-[2rem] p-10 md:p-16 relative">
+<button class="absolute top-8 right-8 text-gray-400 hover:text-white transition-colors" onclick="closeModal('privacy-modal')">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<h3 class="text-2xl font-bold mb-8 tracking-widest uppercase">Privacy Policy</h3>
+<div class="text-gray-400 text-sm leading-relaxed space-y-4 max-h-[50vh] overflow-y-auto pr-4">
+<p>Your privacy is paramount. Ruby Hub does not sell your data to third parties. We only collect essential information required to verify your access and prevent system abuse.</p>
+<p>All stored data is encrypted and accessible only to authorized administrators for the purpose of maintaining service integrity and providing support via our Discord server.</p>
+</div>
+</div>
+</div>
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6 modal-backdrop" id="collect-modal">
+<div class="glass-card w-full max-w-xl rounded-[2rem] p-10 md:p-16 relative">
+<button class="absolute top-8 right-8 text-gray-400 hover:text-white transition-colors" onclick="closeModal('collect-modal')">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<h3 class="text-2xl font-bold mb-10 tracking-widest uppercase">What We Collect?</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-5 p-4 rounded-2xl bg-white/5 border border-white/5">
+<div class="w-10 h-10 rounded-xl bg-ruby/10 flex items-center justify-center border border-ruby/20">
+<svg class="w-5 h-5 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2"></path></svg>
+</div>
+<div>
+<p class="text-white font-bold text-sm tracking-widest uppercase">HWID</p>
+<p class="text-gray-500 text-[10px] uppercase tracking-wider">Hardware Identifier for anti-exploit protection.</p>
+</div>
+</div>
+<div class="flex items-center gap-5 p-4 rounded-2xl bg-white/5 border border-white/5">
+<div class="w-10 h-10 rounded-xl bg-ruby/10 flex items-center justify-center border border-ruby/20">
+<svg class="w-5 h-5 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-width="2"></path></svg>
+</div>
+<div>
+<p class="text-white font-bold text-sm tracking-widest uppercase">Roblox Username</p>
+<p class="text-gray-500 text-[10px] uppercase tracking-wider">To customize your hub experience and logs.</p>
+</div>
+</div>
+<div class="flex items-center gap-5 p-4 rounded-2xl bg-white/5 border border-white/5">
+<div class="w-10 h-10 rounded-xl bg-ruby/10 flex items-center justify-center border border-ruby/20">
+<svg class="w-5 h-5 text-ruby" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-width="2"></path></svg>
+</div>
+<div>
+<p class="text-white font-bold text-sm tracking-widest uppercase">Device Info</p>
+<p class="text-gray-500 text-[10px] uppercase tracking-wider">Detection of platform (PC, Mobile, Tablet).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 <script>
     function copyLoader() {
       const code = document.getElementById('script-code').innerText;
@@ -489,6 +498,24 @@
         alert('Script copied to clipboard!');
       });
     }
+
+    // Modal Controls
+    function openModal(id) {
+        document.getElementById(id).classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+        document.getElementById(id).classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Mouse Spotlight
+    window.addEventListener('mousemove', (e) => {
+        const x = e.clientX + 'px';
+        const y = e.clientY + 'px';
+        document.documentElement.style.setProperty('--mouse-x', x);
+        document.documentElement.style.setProperty('--mouse-y', y);
+    });
 
     // Simple reveal animation observer
     const observer = new IntersectionObserver((entries) => {
@@ -503,11 +530,11 @@
       observer.observe(el);
     });
 
-    // Custom Particle System
+    // Custom Particle System (Optimized Trail)
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     let particlesArray = [];
-    let mouse = { x: null, y: null, radius: 150 };
+    let mouse = { x: null, y: null, radius: 100 };
 
     window.addEventListener('mousemove', (event) => {
         mouse.x = event.x;
@@ -529,29 +556,22 @@
             ctx.fill();
         }
         update() {
-            this.size -= 0.05;
+            this.size -= 0.03;
             if (this.size < 0) {
-                this.x = (mouse.x + ((Math.random() * 20) - 10));
-                this.y = (mouse.y + ((Math.random() * 20) - 10));
-                this.size = (Math.random() * 5) + 1;
-                this.weight = (Math.random() * 2) - 0.5;
+                this.x = (mouse.x + ((Math.random() * 10) - 5));
+                this.y = (mouse.y + ((Math.random() * 10) - 5));
+                this.size = (Math.random() * 3) + 0.5;
+                this.weight = (Math.random() * 1) - 0.25;
             }
             this.y += this.weight;
-            this.weight += 0.2;
-            
-            if (this.y > canvas.height - this.size) {
-                this.weight *= -0.5;
-            }
             
             // Interaction
             let dx = mouse.x - this.x;
             let dy = mouse.y - this.y;
             let distance = Math.sqrt(dx * dx + dy * dy);
             if (distance < mouse.radius) {
-                this.x -= dx / 10;
-                this.y -= dy / 10;
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(227, 27, 84, ${1 - distance/mouse.radius})`;
+                ctx.strokeStyle = `rgba(227, 27, 84, ${0.3 * (1 - distance/mouse.radius)})`;
                 ctx.lineWidth = 0.5;
                 ctx.moveTo(this.x, this.y);
                 ctx.lineTo(mouse.x, mouse.y);
@@ -562,12 +582,13 @@
 
     function initParticles() {
         particlesArray = [];
-        for (let i = 0; i < 150; i++) {
-            let size = (Math.random() * 5) + 1;
+        // Reduced particle count for cleaner look
+        for (let i = 0; i < 60; i++) {
+            let size = (Math.random() * 3) + 0.5;
             let x = Math.random() * canvas.width;
             let y = Math.random() * canvas.height;
-            let color = 'rgba(255, 255, 255, 0.2)';
-            let weight = 1;
+            let color = 'rgba(255, 255, 255, 0.15)';
+            let weight = 0.5;
             particlesArray.push(new Particle(x, y, size, color, weight));
         }
     }
@@ -589,6 +610,18 @@
 
     window.addEventListener('resize', resizeCanvas);
     
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if(window.scrollY > 50) {
+            nav.classList.add('nav-scrolled', 'py-4');
+            nav.classList.remove('py-6');
+        } else {
+            nav.classList.remove('nav-scrolled', 'py-4');
+            nav.classList.add('py-6');
+        }
+    });
+
     // Initialize
     resizeCanvas();
     animateParticles();
