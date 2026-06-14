@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Showcase — Ruby Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #050508;
+      --accent: #E31B54;
+      --accent-light: #FF4D7D;
+      --accent-glow: rgba(227, 27, 84, 0.25);
+      --border-card: rgba(255, 255, 255, 0.07);
+      --text-secondary: rgba(255, 255, 255, 0.6);
+      --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-primary);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #particles-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1200px;
+      padding: 80px 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .showcase-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .showcase-header h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #FF4D7D, #E31B54);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* --- 3D Menu Area --- */
+    .menu-wrapper {
+      perspective: 1500px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 6rem;
+    }
+
+    .cheat-menu {
+      width: 720px;
+      background: rgba(10, 10, 20, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      display: flex;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(227, 27, 84, 0.1);
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+    }
+
+    .menu-sidebar {
+      width: 180px;
+      background: rgba(5, 5, 10, 0.5);
+      border-right: 1px solid var(--border-card);
+      padding: 1.5rem;
+    }
+
+    .sidebar-item {
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .sidebar-item.active {
+      background: rgba(227, 27, 84, 0.1);
+      color: var(--accent-light);
+      border-left: 3px solid var(--accent);
+    }
+
+    .menu-content {
+      flex: 1;
+      padding: 2.5rem;
+    }
+
+    .menu-section-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .option-info h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .option-info p {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .toggle-btn {
+      width: 44px;
+      height: 22px;
+      background: #1a1a2e;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .toggle-btn::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    .toggle-btn.active { background: var(--accent); }
+    .toggle-btn.active::after { transform: translateX(22px); }
+
+    .slider-container {
+      width: 140px;
+    }
+
+    .slider {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    /* --- Footer & CTA --- */
+    .showcase-footer {
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .features-line {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .ready-section h2 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+      box-shadow: 0 0 30px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid var(--border-card);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="container">
+    <div class="showcase-header">
+      <h1>Menu Showcase</h1>
+      <p style="color: var(--text-secondary)">Experience the fluid, high-performance interface of Ruby Hub.</p>
+    </div>
+
+    <div class="menu-wrapper">
+      <div class="cheat-menu" id="cheat-menu">
+        <div class="menu-sidebar">
+          <div class="sidebar-item active">Aimbot</div>
+          <div class="sidebar-item">Visuals</div>
+          <div class="sidebar-item">Movement</div>
+          <div class="sidebar-item">Misc</div>
+          <div class="sidebar-item">Settings</div>
+        </div>
+        <div class="menu-content">
+          <div class="menu-section-title">Aimbot Main</div>
+          
+          <div class="menu-option">
+            <div class="option-info">
+              <h4>Enabled</h4>
+              <p>Master the battlefield with precision.</p>
+            </div>
+            <div class="toggle-btn active"></div>
+          </div>
+
+          <div class="menu-option">
+            <div class="option-info">
+              <h4>Smoothing</h4>
+              <p>Adjust how fast the aim snaps.</p>
+            </div>
+            <div class="slider-container">
+              <input type="range" class="slider" value="45">
+            </div>
+          </div>
+
+          <div class="menu-option">
+            <div class="option-info">
+              <h4>FOV Range</h4>
+              <p>Limit the aimbots area of effect.</p>
+            </div>
+            <div class="slider-container">
+              <input type="range" class="slider" value="120" max="360">
+            </div>
+          </div>
+
+          <div class="menu-option">
+            <div class="option-info">
+              <h4>Visible Check</h4>
+              <p>Only aim at visible targets.</p>
+            </div>
+            <div class="toggle-btn"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="showcase-footer">
+      <div class="features-line">
+        <span>Free Script</span>
+        <span>Undetected</span>
+        <span>24/7 Support</span>
+      </div>
+
+      <div class="ready-section">
+        <h2>Ready To Start?</h2>
+        <div class="cta-btns">
+          <a href="https://dc.gg/rubyhub" class="btn btn-primary">Try Now</a>
+          <a href="index.html" class="btn btn-secondary">Go Back</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const menu = document.getElementById('cheat-menu');
+    
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth - 0.5;
+      const y = e.clientY / window.innerHeight - 0.5;
+      
+      // 3D rotation logic: moving right makes the left side "closer" (tilt right)
+      // We want subtle movement
+      const rotateY = x * 15; 
+      const rotateX = -y * 15;
+      
+      menu.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    // Toggle functionality
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => btn.classList.toggle('active'));
+    });
+  </script>
+</body>
+</html>
