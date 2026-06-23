@@ -20,33 +20,10 @@ module.exports = async function(req, res) {
     return res.status(403).send('Access Denied. You do not have permission to view this script.');
   }
 
-  try {
-    const targetUrl = 'https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download';
-    
-    // Using https module for maximum compatibility across Node versions
-    const https = require('https');
-    
-    https.get(targetUrl, (apiRes) => {
-      let data = '';
-      
-      apiRes.on('data', (chunk) => {
-        data += chunk;
-      });
-      
-      apiRes.on('end', () => {
-        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-        res.status(200).send(data);
-      });
-    }).on('error', (error) => {
-      console.error('Error fetching script:', error);
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      res.status(500).send('-- Internal Server Error: Could not load script.');
-    });
+  // Orijinal Jnkie scriptini çalıştıracak Lua kodunu geri döndürüyoruz
+  const jnkieScript = 'loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()';
 
-  } catch (error) {
-    console.error('Error in handler:', error);
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.status(500).send('-- Internal Server Error: Could not load script.');
-  }
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  return res.status(200).send(jnkieScript);
 }
