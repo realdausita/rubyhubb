@@ -1,7 +1,10 @@
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const userAgent = (req.headers['user-agent'] || '').toLowerCase();
 
-  // Common browser/bot/tool signatures to block
+  // Roblox uses 'Roblox' or 'RobloxStudio' in its User-Agent
+  const isRoblox = userAgent.includes('roblox');
+
+  // Common browser signatures to block
   const browserSignatures = [
     'mozilla', 'chrome', 'safari', 'firefox', 'edge', 'opera',
     'msie', 'trident', 'gecko', 'webkit', 'applewebkit', 'blink',
@@ -11,15 +14,29 @@ export default function handler(req, res) {
 
   const isBrowser = browserSignatures.some(sig => userAgent.includes(sig));
 
-  if (isBrowser) {
+  // If it's a browser and NOT Roblox, block it
+  if (isBrowser && !isRoblox) {
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    return res.status(403).send('Access Denied. You do not have permission to access this script.');
+    return res.status(403).send('Access Denied. You do not have permission to view this script.');
   }
 
-  // The actual script that Roblox's loadstring(game:HttpGet(...)) will receive
-  const jnkieScript = 'loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()';
+  try {
+    // Fetch the actual Lua script in the background to hide the original API URL
+    const targetUrl = 'https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download';
+    const response = await fetch(targetUrl);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch script, status: ${response.status}`);
+    }
 
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  return res.status(200).send(jnkieScript);
+    const scriptContent = await response.text();
+
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    return res.status(200).send(scriptContent);
+  } catch (error) {
+    console.error('Error fetching script:', error);
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    return res.status(500).send('-- Internal Server Error: Could not load script.');
+  }
 }
