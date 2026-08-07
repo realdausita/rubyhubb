@@ -14,7 +14,7 @@ module.exports = async function(req, res) {
 
   if (isBrowser && !isRoblox) {
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    return res.status(403).send('Heya skid you are not going to get source');
+    return res.status(403).send('Heya skid you are not going to get the source');
   }
 
   const jnkieScript = 'loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/34792c8829e32dc584472d8a8302775bdb08ed24f53dad9e09f723d78142319c/download"))()';
